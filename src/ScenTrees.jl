@@ -7,7 +7,7 @@ include("KernelDensityEstimation.jl")
 include("bushinessNesDistance.jl")
 include("checkTree.jl")
 #include("trees_plot.jl")
-include("trees_plot_makie.jl")
+include("tree_plot_makie.jl")
 export tree_approximation!,lattice_approximation,Tree,Lattice,stage,height,leaves,nodes,root,
         part_tree,build_probabilities!,
         tree_plot,#plot_hd,plot_lattice,
