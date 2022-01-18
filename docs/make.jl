@@ -1,15 +1,27 @@
-using Documenter
-using ScenTrees
+using Documenter, ScenTrees
+
+#const ASSETS = readdir(joinpath(@__DIR__, "src", "assets"))
 
 makedocs(
-    sitename = "ScenTrees",
-    format = Documenter.HTML(),
-    modules = [ScenTrees]
+	sitename =  "ScenTrees.jl",
+	authors = "Ruben Schlotter, Alois Pichler, Kirui Kipngeno",
+	clean = true,
+	doctest = false,
+	format = Documenter.HTML(prettyurls = get(ENV, "CI", nothing) == "true"),
+	pages = ["Home" => "index.md",
+		"Tutorials" => Any["tutorial/tutorial1.md",
+				    "tutorial/tutorial2.md",
+				    "tutorial/tutorial3.md",
+				    "tutorial/tutorial31.md",
+				    "tutorial/tutorial4.md",
+				    "tutorial/tutorial41.md",
+				    "tutorial/tutorial5.md"
+				]
+		]
 )
 
-# Documenter can also automatically deploy documentation to gh-pages.
-# See "Hosting Documentation" and deploydocs() in the Documenter manual
-# for more information.
-#=deploydocs(
-    repo = "<repository url>"
-)=#
+deploydocs(
+	repo = "github.com/rubsc/ScenTrees.jl.git"
+	#target = "build",
+	#versions = ["stable" => "v^", "v#.#", "dev" => "master"]
+)
