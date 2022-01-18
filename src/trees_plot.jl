@@ -68,22 +68,22 @@ end
 
 Returns a plots of trees in higher dimensions.
 """
-function plot_hd(newtree::Tree)
-    fig = Figure(backgroundcolor = :gray80, resolution = (1000, 700))
+#function plot_hd(newtree::Tree)
+#    fig = Figure(backgroundcolor = :gray80, resolution = (1000, 700))
+#    
+#    stg = stage(newtree)
     
-    stg = stage(newtree)
-    
-    for rw = 1:size(newtree.state,2)
-      ax = subplot(1,size(newtree.state,2),rw)
-      ax.spines["top"].set_visible(false)                                                  #remove the box top
-      ax.spines["right"].set_visible(false)                                               #remove the box right
-      for i in range(1,stop = length(newtree.parent))
-          if stg[i] > 0
-              ax.plot([stg[i], stg[i]+1],[newtree.state[:,rw][newtree.parent[i]], newtree.state[:,rw][i]])
-          end
-          xlabel("stage, time")
-          ylabel("states")
-      end
-      xticks(unique(stg))
-    end
-end
+#    for rw = 1:size(newtree.state,2)
+#      ax = subplot(1,size(newtree.state,2),rw)
+#      ax.spines["top"].set_visible(false)                                                  #remove the box top
+#      ax.spines["right"].set_visible(false)                                               #remove the box right
+#      for i in range(1,stop = length(newtree.parent))
+#          if stg[i] > 0
+#              ax.plot([stg[i], stg[i]+1],[newtree.state[:,rw][newtree.parent[i]], newtree.state[:,rw][i]])
+#          end
+#          xlabel("stage, time")
+#          ylabel("states")
+#      end
+#      xticks(unique(stg))
+#    end
+#end

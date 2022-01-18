@@ -1,13 +1,11 @@
 using Documenter, ScenTrees
 
 #const ASSETS = readdir(joinpath(@__DIR__, "src", "assets"))
-
+push!(LOAD_PATH,"../src/")
 makedocs(
 	sitename =  "ScenTrees.jl",
 	authors = "Ruben Schlotter, Alois Pichler, Kirui Kipngeno",
-	clean = true,
-	doctest = false,
-	format = Documenter.HTML(prettyurls = get(ENV, "CI", nothing) == "true"),
+	format = Documenter.HTML(prettyurls = false),
 	pages = ["Home" => "index.md",
 		"Tutorials" => Any["tutorial/tutorial1.md",
 				    "tutorial/tutorial2.md",
