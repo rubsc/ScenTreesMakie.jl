@@ -1,4 +1,4 @@
-[![Build Status](https://github.com/rubsc/riskMeasures.jl/actions/workflows/CI.yml/badge.svg?branch=main)](https://github.com/rubsc/riskMeasures.jl/actions/workflows/CI.yml?query=branch%3Amain)
+[![Build Status](https://github.com/rubsc/ScenTrees.jl/actions/workflows/CI.yml/badge.svg?branch=main)](https://github.com/rubsc/ScenTrees.jl/actions/workflows/CI.yml?query=branch%3Amain)
 [![](https://img.shields.io/badge/docs-stable-blue.svg)](https://rubsc.github.io/ScenTrees.jl/stable)
 [![](https://img.shields.io/badge/docs-dev-blue.svg)](https://rubsc.github.io/ScenTrees.jl/dev)
 
@@ -12,6 +12,8 @@
 
 `ScenTrees.jl` is a Julia package for generating and improving scenario trees and scenario lattices for multistage stochastic optimization problems using _stochastic approximation_. It is totally written in the Julia programming language. This package provides functions for generating scenario trees and scenario lattices from stochastic processes and stochastic data.
 
+This is a fork/continuation of the ScenTrees package from Alois Pichler and Kirui Kipngeno found [here](https://github.com/aloispichler/ScenTrees.jl). This package is slightly leaner on dependencies and uses CairoMakie as graphical backend instead of PyPlot with matplotlib. In particular, this eliminates the dependency on Python. 
+
 We provide two important features at the moment:
 
 - Generation of scenario trees and scenario lattices using stochastic approximation procedure.
@@ -24,10 +26,6 @@ We provide two important features at the moment:
 Stochastic approximation procedure in `ScenTrees.jl` library follows from the framework provided by [Pflug and Pichler(2015)](https://doi.org/10.1007/s10589-015-9758-0). The two main user inputs are a fixed branching structure and a function that generates samples from a stochastic process.
 
 *N/B* - _This package is actively developed and therefore new improvements and new features are continuously added._
-## ToDo
-
-+ Check if CSV, PyPlot and XLSX packages are really needed for this package
-+ Add CI and Documentation
 
 
 ## Installation
