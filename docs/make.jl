@@ -21,7 +21,8 @@ makedocs(
 )
 
 deploydocs(
-	repo = "github.com/rubsc/ScenTrees.jl.git"
+	repo = "github.com/rubsc/ScenTrees.jl.git",
+	devbranch = "main"
 	#target = "build",
 	#versions = ["stable" => "v^", "v#.#", "dev" => "master"]
 )
