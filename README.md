@@ -1,4 +1,4 @@
-[![Build Status](https://github.com/rubsc/riskMeasures.jl/actions/workflows/CI.yml/badge.svg?branch=main)](https://github.com/rubsc/riskMeasures.jl/actions/workflows/CI.yml?query=branch%3Amain)
+[![Build Status](https://github.com/rubsc/ScenTrees.jl/actions/workflows/CI.yml/badge.svg?branch=main)](https://github.com/rubsc/ScenTrees.jl/actions/workflows/CI.yml?query=branch%3Amain)
 [![](https://img.shields.io/badge/docs-stable-blue.svg)](https://rubsc.github.io/ScenTrees.jl/stable)
 [![](https://img.shields.io/badge/docs-dev-blue.svg)](https://rubsc.github.io/ScenTrees.jl/dev)
 
