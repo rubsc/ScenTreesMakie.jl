@@ -1,6 +1,5 @@
 using Documenter, ScenTrees
 
-#const ASSETS = readdir(joinpath(@__DIR__, "src", "assets"))
 push!(LOAD_PATH,"../src/")
 makedocs(
 	sitename =  "ScenTrees.jl",
