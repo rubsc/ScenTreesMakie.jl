@@ -13,5 +13,5 @@ export tree_approximation!,lattice_approximation,Tree,Lattice,stage,height,leave
         tree_plot,#plot_hd,plot_lattice,
         gaussian_path1D,gaussian_path2D,
         running_maximum1D,running_maximum2D,path,bushiness_nesdistance,kernel_scenarios, checkTree, tree_plot2, tree_plot3,
-        tree_path,
+        tree_path
 end
