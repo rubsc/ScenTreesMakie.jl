@@ -1,5 +1,5 @@
 
-using Distributions, Statistics, PyPlot, Random
+using Distributions, Statistics, Random
 rng = MersenneTwister(01012019);
 
 #This defines the tree structure.
