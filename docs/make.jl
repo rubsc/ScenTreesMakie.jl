@@ -1,8 +1,8 @@
-using Documenter, ScenTrees
+using Documenter, ScenTrees2
 
 push!(LOAD_PATH,"../src/")
 makedocs(
-	sitename =  "ScenTrees.jl",
+	sitename =  "ScenTrees2.jl",
 	authors = "Ruben Schlotter, Alois Pichler, Kirui Kipngeno",
 	format = Documenter.HTML(prettyurls = false),
 	pages = ["Home" => "index.md",
@@ -18,7 +18,7 @@ makedocs(
 )
 
 deploydocs(
-	repo = "github.com/rubsc/ScenTrees.jl.git",
+	repo = "github.com/rubsc/ScenTrees2.jl.git",
 	devbranch = "main"
 	#target = "build",
 	#versions = ["stable" => "v^", "v#.#", "dev" => "master"]
