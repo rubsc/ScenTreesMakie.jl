@@ -1,4 +1,4 @@
-module ScenTrees
+module ScenTrees2
 
 using CairoMakie
 include("TreeStructure.jl")
