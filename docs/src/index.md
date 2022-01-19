@@ -1,10 +1,10 @@
 ```@meta
-CurrentModule = ScenTrees2
+CurrentModule = ScenTreesMakie
 ```
 
-# ScenTrees2.jl
+# ScenTreesMakie.jl
 
-We present `ScenTrees2.jl` package for generating and improving scenario trees and scenario lattices for multistage stochastic optimization problems using stochastic optimization.
+We present `ScenTreesMakie.jl` package for generating and improving scenario trees and scenario lattices for multistage stochastic optimization problems using stochastic optimization.
 
 ## Main features of the package
 
