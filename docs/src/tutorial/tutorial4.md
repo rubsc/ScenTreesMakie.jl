@@ -1,6 +1,6 @@
 
 ```@meta
-CurrentModule = ScenTrees2
+CurrentModule = ScenTreesMakie
 ```
 
 # Stochastic approximation process
