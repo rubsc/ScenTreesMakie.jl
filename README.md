@@ -1,6 +1,6 @@
-[![Build Status](https://github.com/rubsc/ScenTrees.jl/actions/workflows/CI.yml/badge.svg?branch=main)](https://github.com/rubsc/ScenTrees.jl/actions/workflows/CI.yml?query=branch%3Amain)
-[![](https://img.shields.io/badge/docs-stable-blue.svg)](https://rubsc.github.io/ScenTrees.jl/stable)
-[![](https://img.shields.io/badge/docs-dev-blue.svg)](https://rubsc.github.io/ScenTrees.jl/dev)
+[![Build Status](https://github.com/rubsc/ScenTreesMakie.jl/actions/workflows/CI.yml/badge.svg?branch=main)](https://github.com/rubsc/ScenTreesMakie.jl/actions/workflows/CI.yml?query=branch%3Amain)
+[![](https://img.shields.io/badge/docs-stable-blue.svg)](https://rubsc.github.io/ScenTreesMakie.jl/stable)
+[![](https://img.shields.io/badge/docs-dev-blue.svg)](https://rubsc.github.io/ScenTreesMakie.jl/dev)
 
 
 [![](https://img.shields.io/badge/docs-latest-blue.svg)](https://kirui93.github.io/ScenTrees.jl/latest/)
@@ -8,9 +8,9 @@
 [![Zenodo](https://zenodo.org/badge/DOI/10.5281/zenodo.3672205.svg)](https://doi.org/10.5281/zenodo.3672205)
 [![JOSS](https://joss.theoj.org/papers/10.21105/joss.01912/status.svg)](https://doi.org/10.21105/joss.01912)
 
-# ScenTrees2.jl
+# ScenTreesMakie.jl
 
-`ScenTrees2.jl` is a Julia package for generating and improving scenario trees and scenario lattices for multistage stochastic optimization problems using _stochastic approximation_. It is totally written in the Julia programming language. This package provides functions for generating scenario trees and scenario lattices from stochastic processes and stochastic data.
+`ScenTreesMakie.jl` is a Julia package for generating and improving scenario trees and scenario lattices for multistage stochastic optimization problems using _stochastic approximation_. It is totally written in the Julia programming language. This package provides functions for generating scenario trees and scenario lattices from stochastic processes and stochastic data.
 
 This is a fork/continuation of the ScenTrees package from Alois Pichler and Kirui Kipngeno found [here](https://github.com/aloispichler/ScenTrees.jl). This package is slightly leaner on dependencies and uses CairoMakie as graphical backend instead of PyPlot with matplotlib. In particular, this eliminates the dependency on Python. 
 
@@ -33,7 +33,7 @@ Stochastic approximation procedure in `ScenTrees.jl` library follows from the fr
 To get the latest development version call:
 
 ```julia
-] add https://github.com/rubsc/ScenTrees.jl
+] add https://github.com/rubsc/ScenTreesMakie.jl
 ```
 
 To use `ScenTrees.jl`, you need to have Julia >= v1.0. This package was developed in Julia 1.0.4, and has been tested for Julia >= v1.0 in Linux, OSX and Windows.
