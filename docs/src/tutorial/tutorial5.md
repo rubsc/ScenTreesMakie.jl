@@ -1,8 +1,8 @@
 ```@meta
-CurrentModule = ScenTrees2
+CurrentModule = ScenTreesMakie
 ```
 
-# Performance of `ScenTrees2.jl`
+# Performance of `ScenTreesMakie.jl`
 
 `ScenTrees.jl` was built with a goal of employing the speed of Julia. This package's design allows us to obtain a fast code with high flexibility and excellent computational efficiency. The design choices are highly motivated by the properties of the Julia language.
 
