@@ -1,5 +1,5 @@
 ```@meta
-CurrentModule = ScenTrees
+CurrentModule = ScenTrees2
 ```
 
 # Scenario Lattices
