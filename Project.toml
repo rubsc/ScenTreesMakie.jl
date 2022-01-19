@@ -1,7 +1,7 @@
 name = "ScenTrees2"
 uuid = "9bd120df-771c-42ec-88b3-c561e7179d1b"
 authors = ["Ruben Schlotter <ruben.schlotter@gmail.com>"]
-version = "0.1.0"
+version = "0.1.1"
 
 [deps]
 CairoMakie = "13f3f980-e62b-5c42-98c6-ff1f3baf88f0"
