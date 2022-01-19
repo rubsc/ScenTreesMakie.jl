@@ -53,8 +53,8 @@ jobs:
       - run: |
           julia --project=docs -e '
             using Documenter: doctest
-            using ScenTrees2
-            doctest(ScenTrees2)'
+            using ScenTreesMakie
+            doctest(ScenTreesMakie)'
       - run: julia --project=docs docs/make.jl
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
