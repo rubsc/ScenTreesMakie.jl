@@ -1,5 +1,5 @@
 ```@meta
-CurrentModule = ScenTrees
+CurrentModule = ScenTrees2
 ```
 
 # ScenTrees2.jl
@@ -21,7 +21,7 @@ The package `ScenTrees2.jl` can be installed in Julia REPL as follows:
 ```julia
 julia> using Pkg
 julia> Pkg.add("https://github.com/rubsc/ScenTrees2.jl")
-julia> using ScenTrees
+julia> using ScenTrees2
 ```
 
 Once you have ScenTrees2.jl installed, we recommend that you have a look on the tutorials from the beginning to the end to understand on how you can use the package to generate scenario tree/lattice using stochastic approximation.
