@@ -1,5 +1,5 @@
 ```@meta
-CurrentModule = ScenTrees2
+CurrentModule = ScenTreesMakie
 ```
 
 # Introduction
