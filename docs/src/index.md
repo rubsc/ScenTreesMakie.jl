@@ -2,9 +2,9 @@
 CurrentModule = ScenTrees
 ```
 
-# ScenTrees.jl
+# ScenTrees2.jl
 
-We present `ScenTrees.jl` package for generating and improving scenario trees and scenario lattices for multistage stochastic optimization problems using stochastic optimization.
+We present `ScenTrees2.jl` package for generating and improving scenario trees and scenario lattices for multistage stochastic optimization problems using stochastic optimization.
 
 ## Main features of the package
 
@@ -16,15 +16,15 @@ In the following tutorials, we urge the user to be quite familiar with the theor
 
 ## Installation
 
-The package `ScenTrees.jl` can be installed in Julia REPL as follows:
+The package `ScenTrees2.jl` can be installed in Julia REPL as follows:
 
 ```julia
 julia> using Pkg
-julia> Pkg.add("ScenTrees")
+julia> Pkg.add("https://github.com/rubsc/ScenTrees2.jl")
 julia> using ScenTrees
 ```
 
-Once you have ScenTrees.jl installed, we recommend that you have a look on the tutorials from the beginning to the end to understand on how you can use the package to generate scenario tree/lattice using stochastic approximation.
+Once you have ScenTrees2.jl installed, we recommend that you have a look on the tutorials from the beginning to the end to understand on how you can use the package to generate scenario tree/lattice using stochastic approximation.
 
 ## Important functions in the package
 
