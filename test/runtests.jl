@@ -1,7 +1,7 @@
-using ScenTrees
+using ScenTrees2
 using Test
 
-@testset "ScenTrees.jl" begin
+@testset "ScenTrees2.jl" begin
     @testset "Predefined tree - Tree 402" begin
         a = Tree(402)
         @test typeof(a) == Tree
