@@ -1,5 +1,5 @@
 ```@meta
-CurrentModule = ScenTrees2
+CurrentModule = ScenTreesMakie
 ```
 
 # Kernel Density Estimation
