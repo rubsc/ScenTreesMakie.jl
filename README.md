@@ -8,9 +8,9 @@
 [![Zenodo](https://zenodo.org/badge/DOI/10.5281/zenodo.3672205.svg)](https://doi.org/10.5281/zenodo.3672205)
 [![JOSS](https://joss.theoj.org/papers/10.21105/joss.01912/status.svg)](https://doi.org/10.21105/joss.01912)
 
-# ScenTrees.jl
+# ScenTrees2.jl
 
-`ScenTrees.jl` is a Julia package for generating and improving scenario trees and scenario lattices for multistage stochastic optimization problems using _stochastic approximation_. It is totally written in the Julia programming language. This package provides functions for generating scenario trees and scenario lattices from stochastic processes and stochastic data.
+`ScenTrees2.jl` is a Julia package for generating and improving scenario trees and scenario lattices for multistage stochastic optimization problems using _stochastic approximation_. It is totally written in the Julia programming language. This package provides functions for generating scenario trees and scenario lattices from stochastic processes and stochastic data.
 
 This is a fork/continuation of the ScenTrees package from Alois Pichler and Kirui Kipngeno found [here](https://github.com/aloispichler/ScenTrees.jl). This package is slightly leaner on dependencies and uses CairoMakie as graphical backend instead of PyPlot with matplotlib. In particular, this eliminates the dependency on Python. 
 
