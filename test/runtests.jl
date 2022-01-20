@@ -80,18 +80,18 @@ using Test
         @test size(twoD.state,1) == length(twoD.parent) == length(twoD.probability)
     end
 
-    #@testset "ScenTrees.jl - Lattice Approximation" begin
-    #    tstLat = lattice_approximation([1,2,3,4],gaussian_path1D,500000,2,1)
-    #    @test length(tstLat.state) == length(tstLat.probability)
-    #    @test round.(sum.(tstLat.probability), digits = 1)  == [1.0, 1.0, 1.0, 1.0] #sum of probs at every stage
-    #end
+    @testset "ScenTrees.jl - Lattice Approximation" begin
+        tstLat = lattice_approximation([1,2,3,4],gaussian_path1D,500000,2,1)
+        @test length(tstLat.state) == length(tstLat.probability)
+        @test round.(sum.(tstLat.probability), digits = 1)  == [1.0, 1.0, 1.0, 1.0] #sum of probs at every stage
+    end
 
-    #@testset "ScenTrees.jl - Lattice Approximation 2D" begin
-    #    lat2 = lattice_approximation([1,2,3,4],gaussian_path2D,500000,2,2)
-    #    @test length(lat2) == 2 # resultant lattices are 2
-    #    @test length(lat2[1].state) == length(lat2[1].probability)
-    #    @test round.(sum.(lat2[1].probability), digits = 1)  == [1.0, 1.0, 1.0, 1.0]
-    #    @test round.(sum.(lat2[2].probability), digits = 1)  == [1.0, 1.0, 1.0, 1.0]
-    #end
+    @testset "ScenTrees.jl - Lattice Approximation 2D" begin
+        lat2 = lattice_approximation([1,2,3,4],gaussian_path2D,500000,2,2)
+        @test length(lat2) == 2 # resultant lattices are 2
+        @test length(lat2[1].state) == length(lat2[1].probability)
+        @test round.(sum.(lat2[1].probability), digits = 1)  == [1.0, 1.0, 1.0, 1.0]
+        @test round.(sum.(lat2[2].probability), digits = 1)  == [1.0, 1.0, 1.0, 1.0]
+    end
    
 end
