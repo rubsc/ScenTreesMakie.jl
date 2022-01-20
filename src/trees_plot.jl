@@ -19,7 +19,7 @@ function tree_plot(trr::Tree,fig = nothing, tit = nothing, simple= false)
         f = fig;
     end
 
-    ga = f[1, 1] = GridLayout(); 
+    ga = f[1, 1] = GridLayout();
 
     axmain = Axis(ga[1, 1], xlabel = "Stages / Time", ylabel = "Values");
     axright = Axis(ga[1, 2]);
@@ -68,22 +68,36 @@ end
 
 Returns a plots of trees in higher dimensions.
 """
-#function plot_hd(newtree::Tree)
-#    fig = Figure(backgroundcolor = :gray80, resolution = (1000, 700))
-#    
-#    stg = stage(newtree)
+function plot_hd(newtree::Tree,fig = nothing, tit = nothing, simple= false)
     
-#    for rw = 1:size(newtree.state,2)
-#      ax = subplot(1,size(newtree.state,2),rw)
-#      ax.spines["top"].set_visible(false)                                                  #remove the box top
-#      ax.spines["right"].set_visible(false)                                               #remove the box right
-#      for i in range(1,stop = length(newtree.parent))
-#          if stg[i] > 0
-#              ax.plot([stg[i], stg[i]+1],[newtree.state[:,rw][newtree.parent[i]], newtree.state[:,rw][i]])
-#          end
-#          xlabel("stage, time")
-#          ylabel("states")
-#      end
-#      xticks(unique(stg))
-#    end
-#end
+    NumPlot = size(newtree.state,2);
+	
+
+    if fig === nothing
+        f = Figure(backgroundcolor = :gray80, resolution = (1000, 700))
+    else
+        f = fig;
+    end
+	for i=1:NumPlot
+		f[i] = GridLayout()		
+	end
+
+    stg = stage(newtree)
+    
+    for rw = 1:size(newtree.state,2)
+      axmain = Axis(f[rw][1, 1], xlabel = "Stages / Time", ylabel = "Values");
+      axright = Axis(ga[1, 2]);
+
+      for i in range(1,stop = length(newtree.parent))
+          if stg[i] > 0
+		tmp = DataFrame(x=[stg[i],stg[i]+1], y= [newtree.state[:,rw][newtree.parent[i]], newtree.state[:,rw][i]])
+                lines!(axmain,tmp.x,tmp.y)
+          end
+      end
+    end
+    colgap!(ga, 10)
+    rowgap!(ga, 10)
+    Label(f[1, Top()], "Tree Model", valign = :bottom, padding = (0, 0, 5, 0))
+
+    return(f)
+end
