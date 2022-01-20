@@ -68,7 +68,7 @@ end
 
 Returns a plots of trees in higher dimensions.
 """
-#function plot_hd(newtree::Tree)
+function plot_hd(newtree::Tree,fig = nothing, tit = nothing, simple= false)
     
     NumPlot = size(newtree.state,2);
 	
