@@ -19,7 +19,7 @@ function tree_plot(trr::Tree,fig = nothing, tit = nothing, simple= false)
         f = fig;
     end
 
-    ga = f[1, 1] = GridLayout(); gb = f[1, 2] = GridLayout();
+    ga = f[1, 1] = GridLayout(); 
 
     axmain = Axis(ga[1, 1], xlabel = "Stages / Time", ylabel = "Values");
     axright = Axis(ga[1, 2]);

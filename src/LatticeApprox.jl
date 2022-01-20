@@ -1,5 +1,5 @@
 
-using Statistics, LinearAlgebra, PyPlot
+using Statistics, LinearAlgebra
 
 mutable struct Lattice
     name::String
@@ -87,10 +87,13 @@ end
 
 Returns a plot of a lattice.
 """
-function plot_lattice(lt::Lattice,fig = 1)
-    if !isempty(fig)
-        figure(figsize=(6,4))
+function plot_lattice(lt::Lattice,fig = nothing)
+    if fig === nothing
+        f = Figure(backgroundcolor = :gray80, resolution = (1000, 700))
+    else
+        f = fig;
     end
+    
     lts = subplot2grid((1,4),(0,0),colspan = 3)
     title("states")
     xlabel("stage,time",fontsize=11)
