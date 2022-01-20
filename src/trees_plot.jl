@@ -9,7 +9,7 @@ Args:
 
 Using the Makie version no Python has to be installed.
 """
-function tree_plot(trr::Tree,fig = nothing, tit = nothing, simple= false)
+function tree_plot(trr::Tree,fig = nothing, title = nothing, simple= false)
 
     stg = stage(trr)
     
