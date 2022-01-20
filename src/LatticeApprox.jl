@@ -87,49 +87,33 @@ end
 
 Returns a plot of a lattice.
 """
-function plot_lattice(lt::Lattice,fig = nothing)
+function plot_lattice(lt::Lattice,fig = nothing, title = nothing)
     if fig === nothing
         f = Figure(backgroundcolor = :gray80, resolution = (1000, 700))
     else
         f = fig;
     end
-    
-    lts = subplot2grid((1,4),(0,0),colspan = 3)
-    title("states")
-    xlabel("stage,time",fontsize=11)
-    #ylabel("states")
-    xticks(1:length(lt.state))
-    lts.spines["top"].set_visible(false)                                                         # remove the box at the top
-    lts.spines["right"].set_visible(false)                                                       # remove the box at the right
+
+    ga = f[1, 1] = GridLayout();
+
+    axmain = Axis(ga[1, 1], xlabel = "stages / time", ylabel = "states");
+    axright = Axis(ga[1, 2]);
+
     for t = 2:length(lt.state)
         for i=1:length(lt.state[t-1])
             for j=1:length(lt.state[t])
-                lts.plot([t-1,t],[lt.state[t-1][i],lt.state[t][j]])
+                tmp = DataFrame(x=[t-1,t], y= [lt.state[t-1][i],lt.state[t][j]])
+                lines!(axmain,tmp.x,tmp.y)
+                
             end
         end
     end
 
-    prs = subplot2grid((1,4), (0,3))
-    title("probabilities")
-    prs.spines["top"].set_visible(false)
-    prs.spines["left"].set_visible(false)
-    prs.spines["right"].set_visible(false)
-# Use the states and probabilites at the last stage to plot the marginal distribution
+    
+    # Use the states at the last stage to plot the marginal distribution
     stts = lt.state[end]
-    n = length(stts)                                    # length of terminal nodes of the lattice.
-    h = 1.05 * std(stts) / (n^0.2) + eps()                  #Silverman rule of thumb
-    #lts.set_ylim(minimum(stts)-1.5*h, maximum(stts)+1.5*h)
-    #prs.set_ylim(minimum(stts)-3.0*h, maximum(stts)+3.0*h)
+    
     proba = sum(lt.probability[end], dims=1)
-    yticks(())                                          #remove the ticks on probability plot
-    t = LinRange(minimum(stts) - h, maximum(stts) + h, 100) #100 points on probability plot
-    density = zero(t)
-    for (i, ti) in enumerate(t)
-        for (j, xj) in enumerate(stts)
-            tmp = (xj - ti) / h
-            density[i] += proba[j]* 35/32 * max(1.0 -tmp^2, 0.0)^3 / h #triweight kernel
-        end
-    end
-    plot(density, t)
-    prs.fill_betweenx(t, 0 , density)
+    density!(axright, stts, direction = :y)
+
 end
