@@ -25,7 +25,7 @@ mutable struct Tree
     end
     Tree(name::String,parent::Vector{Int64},
     children::Vector{Vector{Int64}},
-    state::Matrix{Float64}, probability::Matrix{Float64})=new(name, parent, child(parent), state, probability)
+    state::Matrix{Float64}, probability::Matrix{Float64}, dist::Float64)=new(name, parent, child(parent), state, probability,dist)
 
     """
     	Tree(identifier::Int64)
