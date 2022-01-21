@@ -30,8 +30,8 @@ function tree_plot(trr::Tree,fig = nothing, title = nothing, simple= false)
             if stg[i] > 0
                 if (trr.state[trr.parent[i]] != 0 && trr.probability[trr.parent[i]] > 0)
                     if trr.state[i] != 0 && trr.probability[i] >0
-                        tmp = DataFrame(x=[stg[i],stg[i]+1], y= [trr.state[trr.parent[i]],trr.state[i]])
-                        lines!(axmain,tmp.x,tmp.y)
+                        x=[stg[i],stg[i]+1]; y= [trr.state[trr.parent[i]],trr.state[i]];
+                        lines!(axmain,x,y)
                     end
                 end
             end
@@ -40,8 +40,8 @@ function tree_plot(trr::Tree,fig = nothing, title = nothing, simple= false)
     else # simple= false, DEFAULT
         for i = 1 : length(trr.parent)
             if stg[i] > 0
-                tmp = DataFrame(x=[stg[i],stg[i]+1], y= [trr.state[trr.parent[i]],trr.state[i]])
-                lines!(axmain,tmp.x,tmp.y)
+                x=[stg[i],stg[i]+1]; y= [trr.state[trr.parent[i]],trr.state[i]];
+                lines!(axmain,x,y)
             end
         end
 
@@ -90,8 +90,8 @@ function plot_hd(newtree::Tree,fig = nothing, tit = nothing, simple= false)
 
       for i in range(1,stop = length(newtree.parent))
           if stg[i] > 0
-		tmp = DataFrame(x=[stg[i],stg[i]+1], y= [newtree.state[:,rw][newtree.parent[i]], newtree.state[:,rw][i]])
-                lines!(axmain,tmp.x,tmp.y)
+		x=[stg[i],stg[i]+1]; y= [newtree.state[:,rw][newtree.parent[i]], newtree.state[:,rw][i]];
+                lines!(axmain,x,y)
           end
       end
     end
