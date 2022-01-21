@@ -1,6 +1,7 @@
 module ScenTreesMakie
 
-using CairoMakie
+using Plots
+gr()
 include("TreeStructure.jl")
 include("TreeApprox.jl")
 include("StochPaths.jl")
