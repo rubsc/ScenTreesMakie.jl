@@ -1,7 +1,8 @@
 module ScenTreesMakie
 
-using Plots:plot
+using Plots
 gr()
+
 include("TreeStructure.jl")
 include("TreeApprox.jl")
 include("StochPaths.jl")
