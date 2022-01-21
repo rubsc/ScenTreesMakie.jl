@@ -99,8 +99,8 @@ function plot_lattice(lt::Lattice,fig = nothing, title = nothing)
             end
         end
     end
- f = plot(tmpX,tmpY);
-	
+    
+    f = plot(tmpX,tmpY);
 	return(f)
 
 end

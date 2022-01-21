@@ -43,7 +43,6 @@ function tree_plot(trr::Tree,fig = nothing, title = nothing, simple= false)
     end
     
     f = plot(tmpX,tmpY);
-
     return(f)
 end
 

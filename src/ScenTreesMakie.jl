@@ -1,6 +1,6 @@
 module ScenTreesMakie
 
-using Plots
+using Plots:plot
 gr()
 include("TreeStructure.jl")
 include("TreeApprox.jl")
@@ -17,5 +17,5 @@ export tree_approximation!,lattice_approximation,
         gaussian_path1D,gaussian_path2D,
         running_maximum1D,running_maximum2D,path,kernel_scenarios, checkTree, 
         tree_path,
-        tree_plot, plot_hd, plot_lattice
+        tree_plot, plot_lattice
 end
