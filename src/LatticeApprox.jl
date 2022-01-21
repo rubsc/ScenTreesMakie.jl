@@ -88,32 +88,19 @@ end
 Returns a plot of a lattice.
 """
 function plot_lattice(lt::Lattice,fig = nothing, title = nothing)
-    if fig === nothing
-        f = Figure(backgroundcolor = :gray80, resolution = (1000, 700))
-    else
-        f = fig;
-    end
-
-    ga = f[1, 1] = GridLayout();
-
-    axmain = Axis(ga[1, 1], xlabel = "stages / time", ylabel = "states");
-    axright = Axis(ga[1, 2]);
+    
+	tmpX = []; tmpY = [];
 
     for t = 2:length(lt.state)
         for i=1:length(lt.state[t-1])
             for j=1:length(lt.state[t])
-                tmp = DataFrame(x=[t-1,t], y= [lt.state[t-1][i],lt.state[t][j]])
-                lines!(axmain,tmp.x,tmp.y)
-                
+                x=[t-1;t]; y= [lt.state[t-1][i];lt.state[t][j]];
+                append!(tmpX,x,NaN); append!(tmpY,y,NaN);                
             end
         end
     end
-
-    
-    # Use the states at the last stage to plot the marginal distribution
-    stts = lt.state[end]
-    
-    proba = sum(lt.probability[end], dims=1)
-    density!(axright, stts, direction = :y)
+ f = plot(tmpX,tmpY);
+	
+	return(f)
 
 end
