@@ -25,6 +25,7 @@ function lattice_approximation(bstructure::Array{Int64,1}, path::Function, nIter
     states = [zeros(bstructure[j], 1, dim) for j = 1 : T] # States of the lattice at each time t
     probabilities = vcat([zeros(bstructure[1], 1, dim)],[zeros(bstructure[j-1], bstructure[j], dim) for j = 2 : T]) # Probabilities of the lattice at each time t
     init_path = path()
+	
     #Check the dimension of the sample path if it is equal to the dimension of the lattice.
     #if dim != size(init_path)[2]
     #    @error("Dimension of lattice ($dim) is not equal to the dimension of the input array ($(size(init_path)[2]))")
