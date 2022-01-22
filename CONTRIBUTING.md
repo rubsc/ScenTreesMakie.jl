@@ -2,7 +2,7 @@
 
 Thanks for taking time to contribute.
 
-Any contributions to ScenTrees.jl is welcome in the following ways:
+Any contributions to ScenTreesMakie.jl is welcome in the following ways:
 
   * Reporting bugs and suggestions in the issues section of the project's Github.
   * You can also raise and issue a pull request which fixes the issue as long as it doesn't affect the performance of any of the functions in the library.
