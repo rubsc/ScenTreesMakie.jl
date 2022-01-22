@@ -90,7 +90,7 @@ Returns a plot of a lattice.
 """
 function plot_lattice(lt::Lattice,fig = nothing, title = nothing)
     
-	tmpX = []; tmpY = [];
+    tmpX = []; tmpY = [];
 
     for t = 2:length(lt.state)
         for i=1:length(lt.state[t-1])
@@ -101,7 +101,7 @@ function plot_lattice(lt::Lattice,fig = nothing, title = nothing)
         end
     end
     
-    f = plot(tmpX,tmpY);
-	return(f)
+    f = plot(tmpX,tmpY, legend=:topleft);
+    return(f)
 
 end
