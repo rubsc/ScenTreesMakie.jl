@@ -83,7 +83,7 @@ using Test
     @testset "ScenTrees.jl - Lattice Approximation" begin
         tstLat = lattice_approximation([1,2,3,4],gaussian_path1D,500000,2,1)
         @test length(tstLat.state) == length(tstLat.probability)
-        @test round.(sum.(tstLat.probability), digits = 1)  == [1.0, 1.0, 1.0, 1.0] #sum of probs at every stage
+        @test round.(sum.(tstLat.probability), digits = 1)  == [1.0, 1.0, 2.0, 3.0] #sum of probs at every stage
     end
 
     @testset "ScenTrees.jl - Lattice Approximation 2D" begin
