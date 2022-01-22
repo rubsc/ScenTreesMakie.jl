@@ -58,11 +58,18 @@ function lattice_approximation(bstructure::Array{Int64,1}, path::Function, nIter
     end
     # calculate the probabilities
     probabilities = probabilities ./ nIterations
+    
     # functions to print the results of the lattices
     # these functions depends on the dimension of the lattice
     if dim == 1
         # Round the results to make sure that they are neat.
         # Remember it is a 3D array, so a loop will do.
+        for i=length(probabilities):-1:2
+            for j=1:size(probabilities[i])[1]
+                probabilities[i][j,:,1] = round.(probabilities[i][j,:,1] ./ sum(probabilities[i-1][:,j,1]) , digits=6)
+            end
+        end
+
         return Lattice("Approximated Lattice with $bstructure branching structure and distance=$(tdist .^ (1 / r)) at $(nIterations) iterations",
         [round.(states[i], digits = 6) for i = 1 : length(states)], [round.(probabilities[j], digits = 6) for j = 1 : length(probabilities)])
     else
