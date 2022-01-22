@@ -15,11 +15,6 @@ function tree_plot(trr::Tree,fig = nothing, title = nothing, simple= false)
     tmpX = []; tmpY = [];
     if (simple == true)
         for i = 1 : length(trr.parent)
-	    N = length(trr.parent);
-	    if (rem(i,100)==0)
-		print("Progress: $(round(i/N*100,digits=2))%   \r")
-		flush(stdout)
-	    end
             if stg[i] > 0
                 if (trr.state[trr.parent[i]] != 0 && trr.probability[trr.parent[i]] > 0)
                     if trr.state[i] != 0 && trr.probability[i] >0
