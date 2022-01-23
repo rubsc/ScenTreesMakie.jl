@@ -12,7 +12,7 @@ include("checkTree.jl")
 include("trees_plot.jl")
 
 export tree_approximation!,lattice_approximation,
-        Tree,
+        Tree, Lattice,
         stage,height,leaves,nodes,root,
         part_tree,build_probabilities!,
         gaussian_path1D,gaussian_path2D,
