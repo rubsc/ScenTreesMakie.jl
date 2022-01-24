@@ -16,19 +16,19 @@ In the following tutorials, we urge the user to be quite familiar with the theor
 
 ## Installation
 
-The package `ScenTrees2.jl` can be installed in Julia REPL as follows:
+The package `ScenTreesMakie.jl` can be installed in Julia REPL as follows:
 
 ```julia
 julia> using Pkg
-julia> Pkg.add("https://github.com/rubsc/ScenTrees2.jl")
-julia> using ScenTrees2
+julia> Pkg.add("https://github.com/rubsc/Makie.jl")
+julia> using ScenTreesMakie
 ```
 
-Once you have ScenTrees2.jl installed, we recommend that you have a look on the tutorials from the beginning to the end to understand on how you can use the package to generate scenario tree/lattice using stochastic approximation.
+Once you have ScenTreesMakie.jl installed, we recommend that you have a look on the tutorials from the beginning to the end to understand on how you can use the package to generate scenario tree/lattice using stochastic approximation.
 
 ## Important functions in the package
 
-The following are the most important functions that ScenTrees.jl package provides. These functions are explained in detail in the upcoming tutorials.
+The following are the most important functions that ScenTreesMakie.jl package provides. These functions are explained in detail in the upcoming tutorials.
 
 1. `Process function`: This is a user-specified function that generates trajectories of a stochastic process that the user wants to approximate by a scenario tree or a scenario lattice. To choose whether you are going to approximate with a scenario tree or a scenario lattice depends on the type of stochastic process that you have. Scenario trees are used for discrete-time stochastic processes while scenario lattices are natural discretization of the Markovian processes. This function should return an array in 2 dimension. It should not take any inputs else the user should consider using wrappers or function closures. The array returned by this function should have a length equal to the number of stages of the scenario tree/lattice, as well should have the same dimension as the dimension of the states of nodes of the tree/lattice. The user provides this function to the stochastic approximation process. Examples of inbuilt process functions are `gaussian_path1D(), gaussian_path2D(), running_maximum1D(), running_maximum2D(), path()`.
 
