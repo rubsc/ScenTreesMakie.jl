@@ -106,9 +106,3 @@ Since we have the basics of the scenario tree and the scenario lattice and since
 - The most important functions in this module are `tree_approximation!()` and `lattice_approximation()` since these are the two functions which are used to approximate scenario trees and scenario lattices respectively.
 
 - The other important function is the `Tree(bstructure, dimension)` function which gives the basic starting structure of a scenario tree.
-
-### Querying the documentation of each function
-
-All of the above functions have been documented in their respective scripts and the user can find out what each function does by putting a `?` before the function. For example, `?leaves` will give an explanation of what the function `leaves` does.
-
-In the upcoming tutorials, we will have a look in detail on what each function of this package does.
