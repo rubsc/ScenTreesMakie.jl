@@ -61,7 +61,7 @@ Since `tree_approximation!` and `lattice_approximation` function needs a process
 To confirm the above statement, consider a ``1000 \times 5`` dimensional data from random walk. What is important to be said is that we use the package [`CSV`.jl](https://github.com/JuliaData/CSV.jl) to read the data into Julia and since we need the data in matrix form, we use the function `Matrix` from the package [`DataFrames.jl`](https://github.com/JuliaData/DataFrames.jl) to convert the dataframe into an array in two dimension which is then the input of our function.
 
 ```julia
-julia> using ScenTrees, CSV, Distributions
+julia> using ScenTreesMakie, CSV, Distributions
 julia> data = CSV.read(".../RandomDataWalk.csv")
 julia> Rdw = Matrix(data)
 julia> Kdt = kernel_scenarios(Rwd,Logistic;Markovian=true)
