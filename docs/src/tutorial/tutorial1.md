@@ -12,11 +12,11 @@ A scenario tree is a set of nodes and branches used in models of decision making
 
 A scenario tree/lattice is organized in levels which corresponds to stages ``1,\ldots,T``. Each node in a stage has a specified number of predecessors as defined by the branching structure. A node represents a possible state of the stochastic process and the vertices represents the possibility of transition between the two connected nodes. A scenario tree differs from a scenario lattice by the condition that each node in stage ``t`` must have one predecessor in stage ``t-1``. For a lattice, that is not the case; all the nodes in stage ``t-1`` share the same children in stage ``t``.
 
-## Goal of `ScenTrees.jl`
+## Goal of `ScenTreesMakie.jl`
 
 We model stochastic processes by scenario trees and scenario lattices. The distributions of these processes may be continuous and involves parameters that are uncertain.
 
-The goal  of `ScenTrees.jl` is to approximate the distributions of these stochastic processes by discrete distributions with finite number of scenarios of the random variables. We generate a valuated probability scenario tree or a scenario lattice which represents the stochastic process in the best way possible using the stochastic approximation algorithm. These processes are random and represent uncertainty at a particular state and at a certain point in time.  
+The goal  of `ScenTreesMakie.jl` is to approximate the distributions of these stochastic processes by discrete distributions with finite number of scenarios of the random variables. We generate a valuated probability scenario tree or a scenario lattice which represents the stochastic process in the best way possible using the stochastic approximation algorithm. These processes are random and represent uncertainty at a particular state and at a certain point in time.  
 
 These approximations should be tractable, which is small enough to allow for reasonable calculation times, but is large enough to capture the important features of the problem. We use the concept of multistage distance to determine the quality of the approximations
 
@@ -59,8 +59,8 @@ A scenario tree is described by the following:
 A scenario tree is a mutable struct of type `Tree()`. To create a non-optimal scenario tree, we need to fix the branching structure and the dimension of the states of nodes you are working on. The type `Tree()` has different methods:
 ```julia
 julia> using Pkg
-julia> Pkg.add("ScenTrees")
-julia> using ScenTrees
+julia> Pkg.add("https://github.com/rubsc/ScenTreesMakie.jl")
+julia> using ScenTreesMakie
 julia> methods(Tree)
 # 4 methods for generic function "(::Type)":
 [1] Tree(name::String, parent::Array{Int64,1},
@@ -92,8 +92,6 @@ This method is not very important because we only need it to produce the results
 
 ## Exported functions
 
-Since we have the basics of the scenario tree and the scenario lattice and since we created `ScenTrees.jl` with an intention of being user-friendly, we present the exported functions that are visible to the user i.e., that are public, and the user can call these functions depending on what he/she wants to achieve with this package:
-
 1. Tree (associated are: nodes, stage, height, leaves, root, part_tree, build_probabilities!),
 2. tree_approximation!
 3. Lattice,
@@ -102,7 +100,3 @@ Since we have the basics of the scenario tree and the scenario lattice and since
 6. Plotting utilities (these functions include: tree_plot, plot_hd and plot_lattice),
 7. Examples of process functions (gaussian_path1D, gaussian_path2D, running_maximum1D, running_maximum2D, path) and,
 8. bushiness_nesdistance (returns a graph showing how different factors affects the multistage distance.)
-
-- The most important functions in this module are `tree_approximation!()` and `lattice_approximation()` since these are the two functions which are used to approximate scenario trees and scenario lattices respectively.
-
-- The other important function is the `Tree(bstructure, dimension)` function which gives the basic starting structure of a scenario tree.

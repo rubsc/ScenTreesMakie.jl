@@ -20,7 +20,7 @@ The package `ScenTreesMakie.jl` can be installed in Julia REPL as follows:
 
 ```julia
 julia> using Pkg
-julia> Pkg.add("https://github.com/rubsc/Makie.jl")
+julia> Pkg.add("https://github.com/rubsc/ScenTreesMakie.jl")
 julia> using ScenTreesMakie
 ```
 

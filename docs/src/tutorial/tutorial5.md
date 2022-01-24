@@ -4,7 +4,7 @@ CurrentModule = ScenTreesMakie
 
 # Performance of `ScenTreesMakie.jl`
 
-`ScenTrees.jl` was built with a goal of employing the speed of Julia. This package's design allows us to obtain a fast code with high flexibility and excellent computational efficiency. The design choices are highly motivated by the properties of the Julia language.
+`ScenTreesMakie.jl` was built with a goal of employing the speed of Julia. This package's design allows us to obtain a fast code with high flexibility and excellent computational efficiency. The design choices are highly motivated by the properties of the Julia language.
 
 ## Computational time for trees of different heights
 
@@ -48,13 +48,13 @@ In order to see how fast Julia is, we compared the run-time performance of diffe
 |1x3x4x4x2x2| 1,000,000 | 27.36 | 2211.54 | 80.8 times |
 
 
-What is clear is that `ScenTrees.jl` package outperforms MATLAB for all the scenario trees. Also, it is important to see that `ScenTrees.jl` performs pretty faster for scenario trees which are bushy and has different heights.
+What is clear is that `ScenTreesMakie.jl` package outperforms MATLAB for all the scenario trees. Also, it is important to see that `ScenTreesMakie.jl` performs pretty faster for scenario trees which are bushy and has different heights.
 
 ScenTrees totally relies on the features of Julia language. This lead us to attain a speed of approximately 80 times than MATLAB.
 
 ## Development and Testing
 
-`ScenTrees.jl` was developed in Julia 1.0.4 and tested using the standard Julia framework. It was tested for Julia versions 1.0,1.1,1.2 and nightly for the latest release of Julia in Linux and OSX distributions.
+`ScenTreesMakie.jl` was developed in Julia 1.0.4 and tested using the standard Julia framework. It was tested for Julia versions 1.0,1.1,1.2 and nightly for the latest release of Julia in Linux and OSX distributions.
 
 The comparison done for this package in Julia 1.0.4 and MATLAB R2019a was done on Linux(x86_64-pc-Linux-gnu) with CPU(TM) i5-4670 CPU @ 3.40GHz.
 
@@ -63,4 +63,4 @@ What is more important for testing and development is the processor speed for yo
 !!! tip
     This package is actively developed and new features and improvements are constantly and continuously added. So, before using it, make it an habit to update your packages.
 
-This ends our tutorials for using `ScenTrees.jl`. You are now ready to generate scenario trees and scenario lattices depending on what you want to approximate.
+This ends our tutorials for using `ScenTreesMakie.jl`. You are now ready to generate scenario trees and scenario lattices depending on what you want to approximate.

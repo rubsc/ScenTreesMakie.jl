@@ -45,7 +45,7 @@ Given the above inputs, the function does the stochastic approximation process a
 Consider the following. We want to approximate the Gaussian random walk in 4 stages with a tree with a branching structure of `1x3x3x3` in 1 dimension using the usual Euclidean distance ,`p=2` and `r=2` for the multistage distance.
 
 ```julia
-julia> using ScenTrees
+julia> using ScenTreesMakie
 julia> ex2 = Tree([1,3,3,3],1)
 julia> sol1 = tree_approximation!(ex2, gaussian_path1D, 100000, 2, 2)
 julia> tree_plot(sol1)
