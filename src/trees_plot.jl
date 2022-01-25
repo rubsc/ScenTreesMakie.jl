@@ -37,7 +37,7 @@ function tree_plot(trr::Tree,fig = nothing, title = nothing, simple= false)
 
     end
     
-    f = plot(tmpX,tmpY);
+    f = plot(tmpX,tmpY,legend=:topleft);
     return(f)
 end
 
