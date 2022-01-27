@@ -84,7 +84,7 @@ for i=1:stages+1
         prob = tree0.probability[child]
 
         #random selection according to weights --> selection
-        selection = sample(child, Weights(prob))
+        selection = StatsBase.sample(child, StatsBase.Weights(prob))
         path_sim[i] = tree0.state[selection]
     
 
