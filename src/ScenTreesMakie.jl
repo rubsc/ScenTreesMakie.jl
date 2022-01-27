@@ -1,6 +1,6 @@
 module ScenTreesMakie
 
-using Plots
+using Plots, StatsBase
 gr()
 
 include("TreeStructure.jl")
