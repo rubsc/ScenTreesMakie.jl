@@ -68,37 +68,42 @@ end
 function tree_path(tree0::Tree, nPath, flag_show)
 # generates nPath simulations of tree0 model and optionally plots them
     stages = height(tree0);
-    path_sim = zeros(stages+1)
+    tmpX = []; tmpY = [];
+    for j=1:nPath
+        path_sim = zeros(stages+1)
+        path_sim[1] = tree0.state[1];
 
-    path_sim[1] = tree0.state[1];
+        selection = tree0.children[1][1]
+        path_sim[1] = tree0.state[selection]
+        for i=2:stages+1
+        #pick child of stages[i] , i=1 gives root node
+            parents = selection
+            child   = tree0.children[findfirst(x -> x==parents,unique(tree0.parent))]
+            prob = tree0.probability[child]
 
-    selection = tree0.children[1][1]
-    path_sim[1] = tree0.state[selection]
-    for i=2:stages+1
-    #pick child of stages[i] , i=1 gives root node
-        parents = selection
-        child   = tree0.children[findfirst(x -> x==parents,unique(tree0.parent))]
-        prob = tree0.probability[child]
-
-    #random selection according to weights --> selection
-        selection = StatsBase.sample(child, StatsBase.Weights(prob))
-        path_sim[i] = tree0.state[selection]
-    end
-
-    ###############
-    # Plot stuff
-    if flag_show==true
-        tmpX = []; tmpY = [];
-        for i = 1 : height(tree0)
-            x = [i,i+1]; y = [path_sim[i],path_sim[i+1]]
-            tmpX = append!(tmpX,x,NaN)
-            tmpY = append!(tmpY,y,NaN)
+        #random selection according to weights --> selection
+            selection = StatsBase.sample(child, StatsBase.Weights(prob))
+            path_sim[i] = tree0.state[selection]
         end
+
+        ###############
+        # Plot stuff
+        if flag_show==true
+        
+            for i = 1 : height(tree0)
+                x = [i,i+1]; y = [path_sim[i],path_sim[i+1]]
+                tmpX = append!(tmpX,x,NaN)
+                tmpY = append!(tmpY,y,NaN)
+            end
+            
+        end
+
+    end
+    if flag_show==true
         f = plot(tmpX,tmpY,legend=:topleft);
     end
 
-
-
+    return(f)
 end
 
 
