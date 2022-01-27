@@ -10,6 +10,7 @@ include("LatticeApprox.jl")
 include("KernelDensityEstimation.jl")
 include("checkTree.jl")
 include("trees_plot.jl")
+include("sampleTree.jl")
 
 export tree_approximation!,lattice_approximation,
         Tree, Lattice,
