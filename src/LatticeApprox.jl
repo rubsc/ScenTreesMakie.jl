@@ -116,7 +116,7 @@ end
 
 Returns a plot of a lattice.
 """
-function plot_lattice(lt::Lattice,fig = nothing, title = nothing)
+function plot_lattice(lt::Lattice,fig = nothing, title = nothing, label=nothing)
     
     tmpX = []; tmpY = [];
 
@@ -129,8 +129,13 @@ function plot_lattice(lt::Lattice,fig = nothing, title = nothing)
         end
     end
     
-    f = plot(tmpX,tmpY, legend=:topleft);
-    return(f)
+    if label===nothing
+        f = plot(tmpX,tmpY, legend=:topleft);
+        return(f)
+    else
+        f = plot(tmpX,tmpY, legend=:topleft,label=label);
+        return(f)
+    end
 
 end
 

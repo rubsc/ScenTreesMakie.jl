@@ -9,7 +9,7 @@ Args:
 
 Using the Plots version no Python has to be installed, the gr() backend works best at the moment (Fast and easy to use).
 """
-function tree_plot(trr::Tree,fig = nothing, title = nothing, simple= false)
+function tree_plot(trr::Tree,fig = nothing, title = nothing, simple= false, label=nothing)
 
     stg = stage(trr)
     tmpX = []; tmpY = [];
@@ -37,8 +37,13 @@ function tree_plot(trr::Tree,fig = nothing, title = nothing, simple= false)
 
     end
     
-    f = plot(tmpX,tmpY,legend=:topleft);
-    return(f)
+    if label=== nothing
+        f = plot(tmpX,tmpY,legend=:topleft);
+        return(f)
+    else
+        f = plot(tmpX,tmpY,legend=:topleft, label=label);
+        return(f)
+    end
 end
 
 
