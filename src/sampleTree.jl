@@ -67,46 +67,35 @@ end
 
 function tree_path(tree0::Tree, nPath, flag_show)
 # generates nPath simulations of tree0 model and optionally plots them
-stages = height(tree0);
-path_sim = zeros(stages+1)
+    stages = height(tree0);
+    path_sim = zeros(stages+1)
 
-path_sim[1] = tree0.state[1];
+    path_sim[1] = tree0.state[1];
 
-for i=1:stages+1
+    selection = tree0.children[1][1]
+    path_sim[1] = tree0.state[selection]
+    for i=2:stages+1
     #pick child of stages[i] , i=1 gives root node
-    if i == 1
-        selection = tree0.children[i][1]
-        path_sim[i] = tree0.state[selection]
-    else
         parents = selection
         child   = tree0.children[findfirst(x -> x==parents,unique(tree0.parent))]
-    
         prob = tree0.probability[child]
 
-        #random selection according to weights --> selection
+    #random selection according to weights --> selection
         selection = StatsBase.sample(child, StatsBase.Weights(prob))
         path_sim[i] = tree0.state[selection]
-    
-
-    end
-end
-
-###############
-# Plot stuff
-if flag_show==true
-    #suptitle(trr.name, fontsize = 14)
-    trs = subplot()
-    title("paths")
-    stg = stage(tree0)
-    xticks(1 : height(tree0) + 1)         # Set the ticks on the x-axis
-    xlabel("stage,time",fontsize=12)
-    trs.spines["top"].set_visible(false)         # remove the line of the box at the top
-    trs.spines["right"].set_visible(false)		 # remove the line of the box at the right
-    for i = 1 : height(tree0)
-        trs.plot([i,i+1],[path_sim[i],path_sim[i+1]],linewidth=1.5)
     end
 
-end
+    ###############
+    # Plot stuff
+    if flag_show==true
+        tmpX = []; tmpY = [];
+        for i = 1 : height(tree0)
+            x = [i,i+1]; y = [path_sim[i],path_sim[i+1]]
+            tmpX = append!(tmpX,x,NaN)
+            tmpY = append!(tmpY,y,NaN)
+        end
+        f = plot(tmpX,tmpY,legend=:topleft);
+    end
 
 
 
