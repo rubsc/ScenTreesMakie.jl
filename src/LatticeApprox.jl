@@ -115,6 +115,8 @@ end
 	PlotLattice(lt::Lattice,fig=1)
 
 Returns a plot of a lattice.
+There might connections with zero probability -->
+these shouldn't be plotted! TODO
 """
 function plot_lattice(lt::Lattice,fig = nothing, title = nothing, label=nothing)
     
