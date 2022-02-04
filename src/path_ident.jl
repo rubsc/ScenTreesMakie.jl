@@ -26,6 +26,18 @@ function path_ident(lat::Lattice, path::Function, nIteration::Int64, r::Int64=2,
         #tdist = (tdist*(n-1) + dist)/n
     end
 
-    return(states[:][Int(chosenPath[:,1]) ,1,1  ])
+    return( [ states[t][Int(chosen[t,1]),1,1 ] ]  )
+
+end
+
+function plot_path!(path,fig=nothing)
+    tmpX = []; tmpY = [];
+    for t=2:length(path)
+        x = [t-1:t]; y = [path[t-1];path[t]];
+        append!(tmpX,x,NaN); append!(tmpY,y,NaN);
+    end
+
+    f = plot!(tmpX,tmpY, legend = :topleft);
+    return(f)
 
 end
