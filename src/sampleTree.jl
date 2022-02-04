@@ -3,7 +3,7 @@
 
 Plots `nPath` sample paths of the tree `trr` weighted by the probability of the path occuring. 
 """
-function tree_path(trr::Tree, nPath=1, flag_show=true)
+function tree_path(trr::Tree, nPath=1, flag_show=true, label=nothing)
 # generates nPath simulations of tree0 model and optionally plots them
     stages = height(trr);
     tmpX = []; tmpY = [];
@@ -28,7 +28,7 @@ function tree_path(trr::Tree, nPath=1, flag_show=true)
         # Plot stuff
         if flag_show==true
         
-            for i = 1 : height(tree0)
+            for i = 1 : height(trr)
                 x = [i,i+1]; y = [path_sim[i],path_sim[i+1]]
                 tmpX = append!(tmpX,x,NaN)
                 tmpY = append!(tmpY,y,NaN)
@@ -38,10 +38,15 @@ function tree_path(trr::Tree, nPath=1, flag_show=true)
 
     end
     if flag_show==true
+       if label===nothing
         f = plot(tmpX,tmpY,legend=:topleft);
+       else
+          f = plot(tmpX,tmpY,legend=:topleft,label=label);
+       end
+      return(f)
     end
 
-    return(f)
+    return(0)
 end
 
 
