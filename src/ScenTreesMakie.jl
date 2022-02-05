@@ -1,17 +1,19 @@
 module ScenTreesMakie
 
-using Plots, StatsBase
+using Plots
+using StatsBase
+using Distributions, Random
+rng = MersenneTwister(01012019);
+using Statistics, LinearAlgebra
 gr()
 
 include("TreeStructure.jl")
-include("TreeApprox.jl")
+include("Approx.jl")
 include("StochPaths.jl")
-include("LatticeApprox.jl")
+include("LatticeStructure.jl")
 include("KernelDensityEstimation.jl")
-include("checkTree.jl")
-include("trees_plot.jl")
-include("sampleTree.jl")
-include("path_ident.jl")
+include("plots.jl")
+
 
 export tree_approximation!,lattice_approximation,
         Tree, Lattice,
@@ -20,6 +22,6 @@ export tree_approximation!,lattice_approximation,
         gaussian_path1D,gaussian_path2D,
         running_maximum1D,running_maximum2D,path,kernel_scenarios, checkTree, 
         tree_path,
-        tree_plot, plot_lattice, tree_path,
+        tree_plot, lat_plot, sample_path,
         path_ident, plot_path!
 end

@@ -1,7 +1,6 @@
 #All these examples of path are in 4 stages
 
-using Distributions, Random
-rng = MersenneTwister(01012019);
+
 
 """
 	gaussian_path1D()

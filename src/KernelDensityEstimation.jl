@@ -1,6 +1,5 @@
 
-using Distributions, Statistics, Random
-rng = MersenneTwister(01012019);
+
 
 """
     kernel_scenarios(data::Union{Array{Int64,2},Array{Float64,2}}, kernelDistribution = Logistic; Markovian::Bool = true)
