@@ -16,9 +16,17 @@ Args:
 
 - *r* - transportation distance parameter
 """
-function tree_approximation!(newtree::Tree{A,B,C,D,E}, path::Function, nIterations::Int64, p::Int64=2, r::Int64=2) where {A,B,C,D,E}
-    leaf, omegas, probaLeaf = leaves(newtree)      # leaves, indexes and probabilities of the leaves of the tree
-    dm = size(newtree.state, 2)                    # dm = dimension of the states of the nodes of the tree.
+function tree_approximation!(newtree::Tree{A,B,C,D}, path::Function, nIterations::Int64, p::Int64=2, r::Int64=2) where {A,B,C,D}
+    leaf, ~, probaLeaf = leaves(newtree)      # leaves, indexes and probabilities of the leaves of the tree
+
+
+
+    
+    dm = 1                  # dm = dimension of the states of the nodes of the tree. always 1 ELIMINATE
+
+
+
+
     T = height(newtree)                            # height of the tree = number of stages - 1
     n = length(leaf)                               # number of leaves = no of omegas
     d = zeros(Float64, dm, length(leaf))
@@ -28,14 +36,12 @@ function tree_approximation!(newtree::Tree{A,B,C,D,E}, path::Function, nIteratio
     path_to_leaves = [root(newtree, i) for i in leaf]         # all the paths from root to the leaves
     path_to_all_nodes = [root(newtree, j) for j in probaNode] # all paths to other nodes
     for k = 1 : nIterations
-	if (rem(k,100)==0)
-		print("Progress: $(round(k/nIterations*100,digits=2))%   \r")
-		flush(stdout)
-	end
+
         critical = max(0.0, 0.2 * sqrt(k) - 0.1 * n)
         #tmp = findall(xi -> xi <= critical, probaLeaf)
         tmp = Int64[inx for (inx, ppf) in enumerate(probaLeaf) if ppf <= critical]
         samplepath .= path()  # a new trajectory to update the values on the nodes
+        
         #The following part addresses the critical probabilities of the tree so that we don't loose the branches
         if !isempty(tmp) && !iszero(tmp)
             probaNode = zero(probaNode)
@@ -80,7 +86,7 @@ function tree_approximation!(newtree::Tree{A,B,C,D,E}, path::Function, nIteratio
     t_dist = (d * hcat(probabilities) / nIterations) .^ (1 / r)
     newtree.name = "$(newtree.name) with d=$(t_dist) at $(nIterations) iterations"
     newtree.probability .= build_probabilities!(newtree, hcat(probabilities)) #build the probabilities of this tree
-    newtree.dist = t_dist[1]
+
     return newtree
 end
 

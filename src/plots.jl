@@ -9,7 +9,7 @@ Args:
 
 Using the Plots version no Python has to be installed, the gr() backend works best at the moment (Fast and easy to use).
 """
-function tree_plot(trr::Tree{A,B,C,D,E},fig = nothing, title = nothing, simple= false, label=nothing) where {A,B,C,D,E}
+function tree_plot(trr::Tree{A,B,C,D},fig = nothing, title = nothing, simple= false, label=nothing) where {A,B,C,D}
 
     stg = stage(trr)
     tmpX = []; tmpY = [];
@@ -54,7 +54,7 @@ end
 Plots `nPath` sample paths of the tree `trr` weighted by the probability of the path occuring. 
 TODO: plot whole tree, make opaque and only sample paths are dark
 """
-function sample_path(trr::Tree{A,B,C,D,E}, nPath=1, flag_show=true, label=nothing) where {A,B,C,D,E}
+function sample_path(trr::Tree{A,B,C,D}, nPath=1, flag_show=true, label=nothing) where {A,B,C,D}
 # generates nPath simulations of tree0 model and optionally plots them
     stages = height(trr);
     tmpX = []; tmpY = [];
