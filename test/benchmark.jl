@@ -1,6 +1,5 @@
 using ScenTreesMakie
 using ScenTrees
-using BenchmarkTools
 
 # Benchmarks different versions of the tree structure Tree() with type annotations or without
 # and some constructor optimization
@@ -14,7 +13,7 @@ bs2 = Int32.(bs);
 
     # benchmarking approxiation for ScenTreesMakie version with type annotation
     path3() = ScenTreesMakie.gaussian_path1D(n)
-    @time ScenTreesMakie.tree_approximation!(trr,path3,100,2,2);
+    @time ScenTreesMakie.tree_approximation2!(trr,path3,1,2,2);
 
 
 # Alois version of ScenTrees without type annotation and without constructor optimization
