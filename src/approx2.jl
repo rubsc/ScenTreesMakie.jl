@@ -10,10 +10,7 @@ function tree_approximation2!(newtree, path::Function, nIterations::Int64, p::In
     path_to_leaves = [root(newtree, i) for i in leaf]         # all the paths from root to the leaves
     path_to_all_nodes = [root(newtree, j) for j in probaNode] # all paths to other nodes
     for k = 1 : nIterations
-	if (rem(k,10)==0)
-		print("Progress: $(round(k/nIterations*100,digits=2))%   \r")
-		flush(stdout)
-	end
+
         critical = max(0.0, 0.2 * sqrt(k) - 0.1 * n)
         #tmp = findall(xi -> xi <= critical, probaLeaf)
         tmp = Int64[inx for (inx, ppf) in enumerate(probaLeaf) if ppf <= critical]
@@ -52,10 +49,13 @@ function tree_approximation2!(newtree, path::Function, nIterations::Int64, p::In
         istar = Int64[idx for (idx, lf) in enumerate(leaf) if lf == endleaf]
         probaLeaf[istar] .+= 1.0                                                            #counter  of probabilities
         StPath = path_to_leaves[endleaf - (leaf[1] - 1)]
-        println(StPath)
+        #println(StPath)
         delta = newtree.state[StPath,:] - samplepath
+        #println()
+        #println(delta)
         d[:,istar] .+= norm(delta, p).^(r)
         delta .=  r .* norm(delta, p).^(r - p) .* abs.(delta)^(p - 1) .* sign.(delta)
+        #println(delta)
         ak = 1.0 ./ (30.0 .+ probaLeaf[istar]) #.^ 0.75        # step size function - sequence for convergence
         newtree.state[StPath,:] = newtree.state[StPath,:] - delta .* ak
     end

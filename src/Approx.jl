@@ -34,6 +34,7 @@ function tree_approximation!(newtree::Tree{A,B,C,D}, path::Function, nIterations
         # Critical == 0 if n >4!!! This is almost always the case
         #critical = max(0.0, 0.2 * sqrt(k) - 0.1 * n)
         #tmp = findall(xi -> xi <= critical, probaLeaf)
+
         tmp = Int64[inx for (inx, ppf) in enumerate(probaLeaf) if ppf <= 0]
         samplepath .= vec(path())  # a new trajectory to update the values on the nodes
         
@@ -71,14 +72,18 @@ function tree_approximation!(newtree::Tree{A,B,C,D}, path::Function, nIterations
         istar = Int64[idx for (idx, lf) in enumerate(leaf) if lf == endleaf]
         probaLeaf[istar] .+= 1.0                                                            #counter  of probabilities
         StPath = path_to_leaves[endleaf - (leaf[1] - 1)]
+        #println(StPath)
         delta = newtree.state[StPath] - samplepath
+        #println(delta)
         d[istar] .+= norm(delta, p).^(r)
-        delta .=  r .* norm(delta, p).^(r - p) .* abs.(delta)^(p - 1) .* sign.(delta)
+        delta .=  r .* norm(delta, p).^(r - p) .* abs.(delta).^(p - 1) .* sign.(delta)
+        #println(delta)
         ak = 1.0 ./ (30.0 .+ probaLeaf[istar]) #.^ 0.75        # step size function - sequence for convergence
         newtree.state[StPath] = newtree.state[StPath] - delta .* ak
     end
     probabilities  = map(plf -> plf / sum(probaLeaf), probaLeaf) #divide every element by the sum of all elements
-    t_dist = (d * hcat(probabilities) / nIterations) .^ (1 / r)
+
+    t_dist = (sum(d .* hcat(probabilities)) / nIterations) .^ (1 / r)
     newtree.name = "$(newtree.name) with d=$(t_dist) at $(nIterations) iterations"
     newtree.probability .= build_probabilities!(newtree, hcat(probabilities)) #build the probabilities of this tree
 

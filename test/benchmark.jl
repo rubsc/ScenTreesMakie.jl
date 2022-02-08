@@ -10,12 +10,12 @@ bs2 = Int32.(bs);
 
 # Current ScenTreesMakie version, with parameterized types
     @time trr = ScenTreesMakie.Tree(bs);
-
+    trr2 = trr;
     # benchmarking approxiation for ScenTreesMakie version with type annotation
     path3() = ScenTreesMakie.gaussian_path1D(n)
-    @time ScenTreesMakie.tree_approximation2!(trr,path3,1,2,2);
 
-
+    @time ScenTreesMakie.tree_approximation!(trr,path3,1000,2,2);
+    @time tree_approximation2!(trr,path3,1000,2,2);
 # Alois version of ScenTrees without type annotation and without constructor optimization
     @time trr2 = ScenTrees.Tree(bs);
     @time ScenTrees.tree_approximation!(trr2,path3,100,2,2);
