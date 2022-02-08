@@ -21,25 +21,20 @@ function tree_approximation!(newtree::Tree{A,B,C,D}, path::Function, nIterations
 
 
 
-    
-    dm = 1                  # dm = dimension of the states of the nodes of the tree. always 1 ELIMINATE
-
-
-
-
     T = height(newtree)                            # height of the tree = number of stages - 1
     n = length(leaf)                               # number of leaves = no of omegas
-    d = zeros(Float64, dm, length(leaf))
-    samplepath = zeros(Float64, T+1, dm)           # T + 1 = the number of stages in the tree.
+    d = zeros(Float64, length(leaf))
+    samplepath = zeros(Float64, T+1)           # T + 1 = the number of stages in the tree.
     probaLeaf = zero(probaLeaf)
     probaNode = nodes(newtree)                                # all nodes of the tree
     path_to_leaves = [root(newtree, i) for i in leaf]         # all the paths from root to the leaves
     path_to_all_nodes = [root(newtree, j) for j in probaNode] # all paths to other nodes
     for k = 1 : nIterations
 
-        critical = max(0.0, 0.2 * sqrt(k) - 0.1 * n)
+        # Critical == 0 if n >4!!! This is almost always the case
+        #critical = max(0.0, 0.2 * sqrt(k) - 0.1 * n)
         #tmp = findall(xi -> xi <= critical, probaLeaf)
-        tmp = Int64[inx for (inx, ppf) in enumerate(probaLeaf) if ppf <= critical]
+        tmp = Int64[inx for (inx, ppf) in enumerate(probaLeaf) if ppf <= 0]
         samplepath .= path()  # a new trajectory to update the values on the nodes
         
         #The following part addresses the critical probabilities of the tree so that we don't loose the branches
@@ -55,8 +50,8 @@ function tree_approximation!(newtree::Tree{A,B,C,D}, path::Function, nIterations
             for tmpi = tmp
                 rt = path_to_leaves[tmpi]
                 #tmpi = findall(pnt -> pnt <= critical, probaNode[rt])
-                tmpi = Int64[ind for (ind, pnt) in enumerate(probaNode[rt]) if pnt <= critical]
-                newtree.state[rt[tmpi],:] .= samplepath[tmpi,:]
+                tmpi = Int64[ind for (ind, pnt) in enumerate(probaNode[rt]) if pnt <= 0]
+                newtree.state[rt[tmpi]] .= samplepath[tmpi]
             end
         end
         #To the step  of STOCHASTIC COMPUTATIONS
@@ -76,11 +71,11 @@ function tree_approximation!(newtree::Tree{A,B,C,D}, path::Function, nIterations
         istar = Int64[idx for (idx, lf) in enumerate(leaf) if lf == endleaf]
         probaLeaf[istar] .+= 1.0                                                            #counter  of probabilities
         StPath = path_to_leaves[endleaf - (leaf[1] - 1)]
-        delta = newtree.state[StPath,:] - samplepath
-        d[:,istar] .+= norm(delta, p).^(r)
+        delta = newtree.state[StPath] - samplepath
+        d[istar] .+= norm(delta, p).^(r)
         delta .=  r .* norm(delta, p).^(r - p) .* abs.(delta)^(p - 1) .* sign.(delta)
         ak = 1.0 ./ (30.0 .+ probaLeaf[istar]) #.^ 0.75        # step size function - sequence for convergence
-        newtree.state[StPath,:] = newtree.state[StPath,:] - delta .* ak
+        newtree.state[StPath] = newtree.state[StPath] - delta .* ak
     end
     probabilities  = map(plf -> plf / sum(probaLeaf), probaLeaf) #divide every element by the sum of all elements
     t_dist = (d * hcat(probabilities) / nIterations) .^ (1 / r)
