@@ -1,22 +1,29 @@
 using ScenTreesMakie
-using ScenTrees
+using LinearAlgebra
 
 # Benchmarks different versions of the tree structure Tree() with type annotations or without
 # and some constructor optimization
 
 # Test branching structure
-bs = [1,2,2,2,2,2,2,2,2,2,2,2,2,2,2];  n = length(bs)
-bs2 = Int32.(bs); 
+bs = [1,2,2,2,2,2,2,2,2,2,2,2,2,2,2];  n = length(bs) 
 
 # Current ScenTreesMakie version, with parameterized types
-    @time trr = ScenTreesMakie.Tree(bs);
+    trr = ScenTreesMakie.Tree(bs);
     trr2 = trr;
-    # benchmarking approxiation for ScenTreesMakie version with type annotation
     path3() = ScenTreesMakie.gaussian_path1D(n)
 
-    @time ScenTreesMakie.tree_approximation!(trr,path3,1000,2,2);
-    @time tree_approximation2!(trr,path3,1000,2,2);
-# Alois version of ScenTrees without type annotation and without constructor optimization
-    @time trr2 = ScenTrees.Tree(bs);
-    @time ScenTrees.tree_approximation!(trr2,path3,100,2,2);
+    # benchmarking approxiation for ScenTreesMakie version with type annotation    
 
+    @time ScenTreesMakie.tree_approximation!(trr,path3,10,2,2);
+
+    # Alois Version of tree_approximation
+    @time tree_approximation2!(trr2,path3,10,2,2);
+
+
+
+    ######################################
+    using Profile, PProf
+
+    ScenTreesMakie.tree_approximation!(trr,path3,10,2,2);
+    @profile ScenTreesMakie.tree_approximation!(trr,path3,10,2,2);
+    pprof(;webport=58699)

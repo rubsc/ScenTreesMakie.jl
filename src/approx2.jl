@@ -65,3 +65,61 @@ function tree_approximation2!(newtree, path::Function, nIterations::Int64, p::In
     newtree.probability .= build_probabilities!(newtree, hcat(probabilities)) #build the probabilities of this tree
     return newtree
 end
+
+
+
+################
+# Benchmark view function
+samplepath = collect(1:1000)
+using LinearAlgebra
+
+function test01(samplepath)
+for t = 1:length(samplepath)
+    dist = norm(view(samplepath, 1 : t) - view(samplepath.^2, 1:t),2);
+end
+end
+
+function test02(samplepath)
+for t = 1:length(samplepath)
+    dist = (sum((view(samplepath, 1 : t) - view(samplepath.^2, 1:t)).^2))^0.5;
+end
+end
+
+function test03(samplepath)
+    for t = 1:length(samplepath)
+        dist = norm(samplepath[1:t] - samplepath[1:t].^2,2);
+    end
+    end
+
+function test04(samplepath)
+    for t = 1:length(samplepath)
+        dist = (sum((samplepath[1:t] - samplepath[1:t].^2).^2))^0.5;
+    end
+end
+
+
+@time test01(samplepath) # with norm and view is best
+@time test02(samplepath)
+@time test03(samplepath)
+@time test04(samplepath)
+
+
+#Benchmarking list comprehensions
+leaf =  collect(16384:32767000); endleaf = 32767000;
+function l_test01(leaf,endleaf)
+    istar = Int64[idx for (idx, lf) in enumerate(leaf) if lf == endleaf]
+
+end
+
+
+function l_test02(leaf,endleaf)
+    for i=1:length(leaf)
+        if leaf[i] == endleaf
+            return(i)
+        end
+    end
+end
+
+@time l_test01(leaf,endleaf)
+@time l_test02(leaf,endleaf)
+
