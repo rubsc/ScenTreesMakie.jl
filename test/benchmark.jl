@@ -27,3 +27,4 @@ bs = [1,2,2,2,2,2,2,2,2,2,2,2,2,2,2];  n = length(bs)
     ScenTreesMakie.tree_approximation!(trr,path3,10,2,2);
     @profile ScenTreesMakie.tree_approximation!(trr,path3,10,2,2);
     pprof(;webport=58699)
+

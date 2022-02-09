@@ -18,9 +18,6 @@ Args:
 """
 function tree_approximation!(newtree::Tree{A,B,C,D}, path::Function, nIterations::Int64, p::Int64=2, r::Int64=2) where {A,B,C,D}
     leaf, ~, probaLeaf = leaves(newtree)      # leaves, indexes and probabilities of the leaves of the tree
-
-
-
     T = height(newtree)                            # height of the tree = number of stages - 1
     n = length(leaf)                               # number of leaves = no of omegas
     d = zeros(Float64, length(leaf))
@@ -175,3 +172,4 @@ function lattice_approximation(bstructure::Array{Int64,1}, path::Function, nIter
         return lattices
     end
 end
+

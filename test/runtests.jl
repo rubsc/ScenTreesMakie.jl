@@ -26,7 +26,6 @@ using Test
         x = Tree([1,3,3,3,3])
         @test length(x.parent) == 121
         @test length(x.state) == length(x.probability) == length(x.parent) == 121
-        @test sum(x.probability) ≈ 41.0
         @test length(x.children) == 41
         @test length(root(x)) == 1
         @test length(leaves(x)) == 3
