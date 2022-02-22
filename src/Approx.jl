@@ -29,10 +29,10 @@ function tree_approximation!(newtree::Tree{A,B,C,D}, path::Function, nIterations
     for k = 1 : nIterations
 
         # Critical == 0 if n >4!!! This is almost always the case
-        #critical = max(0.0, 0.2 * sqrt(k) - 0.1 * n)
+        critical = max(0.0, 0.2 * sqrt(k) - 0.1 * n)
         #tmp = findall(xi -> xi <= critical, probaLeaf)
 
-        tmp = Int64[inx for (inx, ppf) in enumerate(probaLeaf) if ppf <= 0]
+        tmp = Int64[inx for (inx, ppf) in enumerate(probaLeaf) if ppf <= critical]
         samplepath .= vec(path())  # a new trajectory to update the values on the nodes
         
         #The following part addresses the critical probabilities of the tree so that we don't loose the branches
@@ -48,7 +48,7 @@ function tree_approximation!(newtree::Tree{A,B,C,D}, path::Function, nIterations
             for tmpi = tmp
                 rt = path_to_leaves[tmpi]
                 #tmpi = findall(pnt -> pnt <= critical, probaNode[rt])
-                tmpi = Int64[ind for (ind, pnt) in enumerate(probaNode[rt]) if pnt <= 0]
+                tmpi = Int64[ind for (ind, pnt) in enumerate(probaNode[rt]) if pnt <= critical]
                 newtree.state[rt[tmpi]] .= samplepath[tmpi]
             end
         end
