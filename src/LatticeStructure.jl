@@ -31,31 +31,3 @@ end
 # Include helper functions for lattices here
 # similar to Tree structure
 
-
-function path_ident(lat::Lattice, path::Function, nIteration::Int64, r::Int64=2)
-    tdist = 0.0
-    T = length(lat.state)
-
-    states = lat.state
-    probabilities = lat.probability
-
-    Z = Array{Float64}(undef, T) # Array to hold the new samples generated7
-    chosenPath = Array{Float64}(undef,T)
-
-    #Stochastic approximation step starts here
-    for n = 1 : nIterations
-        Z .= vec(path()) # Draw a new sample Gaussian path
-        dist = 0
-        for t = 1 : T
-            # corrective action to include lost nodes
-            min_dist, new_index = findmin(abs.(vec(states[t][:, :, 1] .- Z[t]))) # find the closest lattice entry
-            dist += min_dist^2  # Euclidean distance for the paths
-            chosenPath[t] = new_index
-        end
-        # calculate the multistage distance
-	tdist = (tdist .* (n - 1) + dist .^(r/2) )/ n
-    end
-
-    return( [ states[t][Int(chosenPath[t]),1,1 ] ]  )
-
-end
