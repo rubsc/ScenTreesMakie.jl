@@ -116,13 +116,6 @@ mutable struct Tree{String <: A <: String, Vector{Int64}<:B <: Vector{Int64}, Ve
         return self
     end
 
-    function children(parent::B) where {B}
-        allchildren = Vector{B}([])
-        for node in unique(parent)
-            push!(allchildren, [i for i = 1 : length(parent) if parent[i] == node])
-        end
-        return allchildren
-    end
 
     """
     	Tree(bstructure::Vector{Int64}, dimension=Int64[])
@@ -157,6 +150,15 @@ mutable struct Tree{String <: A <: String, Vector{Int64}<:B <: Vector{Int64}, Ve
         self.probability = similar(self.state);
         return self
     end
+end
+
+
+function children(parent)
+    allchildren = Vector([])
+    for node in unique(parent)
+        push!(allchildren, [i for i = 1 : length(parent) if parent[i] == node])
+    end
+    return allchildren
 end
 
 """
