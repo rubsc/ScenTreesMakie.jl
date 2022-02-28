@@ -19,12 +19,3 @@ bs = [1,2,2,2,2,2,2,2,2,2,2,2,2,2,2];  n = length(bs)
     # Alois Version of tree_approximation
     @time tree_approximation2!(trr2,path3,10,2,2);
 
-
-
-    ######################################
-    using Profile, PProf
-
-    ScenTreesMakie.tree_approximation!(trr,path3,10,2,2);
-    @profile ScenTreesMakie.tree_approximation!(trr,path3,10,2,2);
-    pprof(;webport=58699)
-
