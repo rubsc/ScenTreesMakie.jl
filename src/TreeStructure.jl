@@ -116,6 +116,14 @@ mutable struct Tree{String <: A <: String, Vector{Int64}<:B <: Vector{Int64}, Ve
         return self
     end
 
+    function children(parent::B) where {B}
+        allchildren = Vector{B}([])
+        for node in unique(parent)
+            push!(allchildren, [i for i = 1 : length(parent) if parent[i] == node])
+        end
+        return allchildren
+    end
+
     """
     	Tree(bstructure::Vector{Int64}, dimension=Int64[])
 
@@ -280,20 +288,40 @@ function root(trr::Tree{A,B,C,D}, nodes = Int64[]) where {A,B,C,D}
 end
 
 """
-	part_tree(trr::Tree)
+	part_tree(trr::Tree,node)
 
-Returns a vector of trees in d-dimension.
+Returns a reduced tree starting at `node`. If `node` is the root node then original tree is returned. 
 
 Args:
-- trr - an instance of Tree.
+- trr - an instance of Tree
+- node - a node of trr which becomes the new root.
 """
-function part_tree(trr::Tree{A,B,C,D}) where {A,B,C,D}
-    trees = Tree[]
-    for col = 1:size(trr.state , 2)
-        subtree = Tree("Tree of state $col", trr.parent, trr.children, hcat(trr.state[:,col]), trr.probability)
-        push!(trees,subtree)
+function part_tree(trr, node::Int64=0)
+    if node == 0 || node == 1
+        return(trr)
     end
-    return trees
+    trr2 = deepcopy(trr)
+    trr2.state[1] = trr2.state[node] 
+    tmp = reverse(unique(trr2.parent)); pop!(tmp)
+    for i in tmp
+        if !(node ∈ root(trr2,[i]))
+            # delete i from parents, children and states
+            deleteat!(trr2.state, i .∈ trr2.parent)
+            deleteat!(trr2.probability, i .∈ trr2.parent)
+            deleteat!(trr2.parent, i .∈ trr2.parent)
+        end
+    end
+       
+    tmp = unique(trr2.parent[2:end])
+    for j=1:length(tmp)
+        trr2.parent[trr2.parent .== tmp[j]] .= j
+    end
+    
+    trr2.children = children(trr2.parent)
+    
+    #trr2.parent[2:end] = trr2.parent[2:end] .- trr2.parent[2].+1
+    return(trr2)
+    
 end
 
 
