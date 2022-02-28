@@ -177,7 +177,7 @@ end
 
 
 
-function path_ident(trr::Tree{A,B,C,D}, path::Function, nIterations::Int64, r::Int64=2, p::Int64=2) where {A,B,C,D}
+function path_ident(trr, path::Function, nIterations::Int64, r::Int64=2, p::Int64=2)
     leaf, ~, probaLeaf = leaves(trr)      # leaves, indexes and probabilities of the leaves of the tree
     T = height(trr)                            # height of the tree = number of stages - 1
     n = length(leaf)                               # number of leaves = no of omegas
