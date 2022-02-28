@@ -177,32 +177,42 @@ end
 
 
 
-function path_ident(trr::Tree, path::Function, nIteration::Int64, r::Int64=2)
-    tdist = 0.0
-    T = length(trr.state)
+function path_ident(trr::Tree{A,B,C,D}, path::Function, nIterations::Int64, r::Int64=2, p::Int64=2) where {A,B,C,D}
+    leaf, ~, probaLeaf = leaves(trr)      # leaves, indexes and probabilities of the leaves of the tree
+    T = height(trr)                            # height of the tree = number of stages - 1
+    n = length(leaf)                               # number of leaves = no of omegas
+    d = zeros(Float64, length(leaf))
+    samplepath = zeros(Float64, T+1)           # T + 1 = the number of stages in the tree.
+    chosenPath = zeros(Int64, T+1)  
 
-    states = trr.state
-    probabilities = trr.probability
+    probaLeaf = zero(probaLeaf)
+    probaNode = nodes(trr)                                # all nodes of the tree
+    path_to_leaves = [root(trr, i) for i in leaf]         # all the paths from root to the leaves
+    path_to_all_nodes = [root(trr, j) for j in probaNode] # all paths to other nodes
+    for k = 1 : nIterations
+        
+        critical = max(0.0, 0.2 * sqrt(k) - 0.1 * n)
+        tmp = Int64[inx for (inx, ppf) in enumerate(probaLeaf) if ppf <= critical]
 
-    Z = Array{Float64}(undef, T) # Array to hold the new samples generated
-    chosenPath = Array{Float64}(undef,T)
+        samplepath .= vec(path())  # a new trajectory to update the values on the nodes
 
-    #Stochastic approximation step starts here
-    for n = 1 : nIterations
-        Z .= vec(path()) # Draw a new sample Gaussian path
-        dist = 0
-        for t = 1 : T
-            # corrective action to include lost nodes
-            min_dist, new_index = findmin(abs.(vec(states[t][:, :, 1] .- Z[t]))) # find the closest tree entry
-            dist += min_dist^2  # Euclidean distance for the paths
-            chosenPath[t] = new_index
+        #To the step  of STOCHASTIC COMPUTATIONS
+        endleaf = 0 #start from the root
+        for t = 1 : T+1
+            tmpleaves = trr.children[endleaf + 1]
+            disttemp = Inf #or fill(Inf,dm)
+            for i = tmpleaves
+                dist = norm(view(samplepath, 1 : t) - view(trr.state, path_to_all_nodes[i]), p)
+                if dist < disttemp
+                    disttemp = dist
+                    endleaf = i
+                    chosenPath[t] = i
+                end
+            end
         end
-        # calculate the multistage distance
-	tdist = (tdist .* (n - 1) + dist .^(r/2) )/ n
-    end
 
-    return(chosenPath)
-    return( [ states[t][Int(chosenPath[t]),1,1 ] ]  )
+    end
+    return(chosenPath, trr.state[chosenPath])
 
 end
 

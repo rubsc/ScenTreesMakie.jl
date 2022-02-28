@@ -8,9 +8,10 @@ using Statistics, LinearAlgebra
 gr()
 
 include("TreeStructure.jl")
+include("LatticeStructure.jl")
 include("Approx.jl")
 include("StochPaths.jl")
-include("LatticeStructure.jl")
+
 include("KernelDensityEstimation.jl")
 include("plots.jl")
 
