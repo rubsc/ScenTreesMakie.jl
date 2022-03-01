@@ -18,7 +18,7 @@ include("plots.jl")
 
 export tree_approximation!,lattice_approximation,
         Tree, Lattice,
-        stage,height,leaves,nodes,root, children
+        stage,height,leaves,nodes,root, children,
         part_tree,build_probabilities!,
         gaussian_path1D,gaussian_path2D,
         running_maximum1D,running_maximum2D,path,kernel_scenarios, checkTree, 
