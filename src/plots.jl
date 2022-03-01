@@ -61,7 +61,7 @@ Args:
 
 Using the Plots version no Python has to be installed, the gr() backend works best at the moment (Fast and easy to use).
 """
-function tree_plot!(trr::Tree{A,B,C,D},fig = nothing, title = nothing, simple= false, label=nothing) where {A,B,C,D}
+function tree_plot!(trr::Tree{A,B,C,D},offset=0,fig = nothing, title = nothing, simple= false, label=nothing) where {A,B,C,D}
 
     stg = stage(trr)
     tmpX = []; tmpY = [];
@@ -70,7 +70,7 @@ function tree_plot!(trr::Tree{A,B,C,D},fig = nothing, title = nothing, simple= f
             if stg[i] > 0
                 if (trr.state[trr.parent[i]] != 0 && trr.probability[trr.parent[i]] > 0)
                     if trr.state[i] != 0 && trr.probability[i] >0
-			x=[stg[i];stg[i]+1]; y= [trr.state[trr.parent[i]];trr.state[i]];
+			x=[stg[i]+offset;stg[i]+1+offset]; y= [trr.state[trr.parent[i]];trr.state[i]];
                     	tmpX = append!(tmpX,x,NaN)
                     	tmpY = append!(tmpY,y,NaN)
                     end
@@ -81,7 +81,7 @@ function tree_plot!(trr::Tree{A,B,C,D},fig = nothing, title = nothing, simple= f
     else # simple= false, DEFAULT
         for i = 1 : length(trr.parent)
             if stg[i] > 0
-                x=[stg[i];stg[i]+1]; y= [trr.state[trr.parent[i]];trr.state[i]];
+                x=[stg[i]+offset;stg[i]+1+offset]; y= [trr.state[trr.parent[i]];trr.state[i]];
                 tmpX = append!(tmpX,x,NaN)
                 tmpY = append!(tmpY,y,NaN)
             end
