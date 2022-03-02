@@ -15,17 +15,3 @@ function splitStructure(tree0::Tree{A,B,C,D,E}) where {A,B,C,D,E}
     return(tree0.name[5:end])
 end
 
-
-
-################################
-# Provide Julia wrapper functions to stochastic mortality models (hrStoMoMore)
-# Provide plots of sample paths?
-# Provide counter of number of nodes
-# Provide estimated run time of tree_approximation! ?
-
-# Provide shading of likely tree scenarios
-# Provide scaled plots to eliminated trend? --> nicer plot, better shading available
-
-# make use of the idea in bushiness to find better tree structure ???
-# helper function to save and read trees for documentation
-# create size and length methods for tree structures
