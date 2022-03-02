@@ -1,5 +1,3 @@
-using ProgressMeter
-
 """
 	tree_approximation!(newtree::Tree, path::Function, nIterations::Int64, p::Int64=2, r::Int64=2)
 
