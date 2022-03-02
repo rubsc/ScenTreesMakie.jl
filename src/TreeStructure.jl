@@ -118,12 +118,12 @@ mutable struct Tree{String <: A <: String, Vector{Int64}<:B <: Vector{Int64}, Ve
 
 
     """
-    	Tree(bstructure::Vector{Int64}, dimension=Int64[])
+    	Tree(bs::Vector{Int64})
 
     Returns a tree according to the specified branching vector and the dimension.
 
     Args:
-    - bstructure - the branching structure of the scenario tree.
+    - bs - the branching structure of the scenario tree.
 
     The branching vector must start with 1 for the root node.
     """
