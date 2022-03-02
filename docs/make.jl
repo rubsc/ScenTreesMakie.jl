@@ -13,7 +13,8 @@ makedocs(
 				    "tutorial/tutorial4.md",
 				    "tutorial/tutorial41.md",
 				    "tutorial/tutorial5.md"
-				]
+				],
+				"Function Library" => "library.md",
 		]
 )
 
