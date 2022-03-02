@@ -25,6 +25,6 @@ export tree_approximation!,lattice_approximation,
         running_maximum1D,running_maximum2D,path,kernel_scenarios, checkTree, 
         tree_path,
         tree_plot, lat_plot, sample_path,
-        path_ident, plot_path!
+        path_ident, plot_path!,
         structure
 end
