@@ -43,7 +43,7 @@ Provides a summary on the branching structure of the lattice `lat`.
 
 
 # Example
-```jldoctest
+```julia-repl
 julia> lat = Lattice(304);
 julia> structure(lat)
 ([1, 2, 3, 4], 10, 20, 24)
