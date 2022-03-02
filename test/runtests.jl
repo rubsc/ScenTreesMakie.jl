@@ -124,7 +124,7 @@ end
     @test sum(probs) == 1.0
 
     trr = Tree(404);
-    summary(trr)
+    ScenTreesMakie.summary(trr)
 
 end
 
