@@ -31,19 +31,13 @@ using Test
         @test length(leaves(x)) == 3
     end
     @testset "Sample stochastic functions" begin
-        a = gaussian_path1D()
-        b = running_maximum1D()
-        c = path()
-        d = gaussian_path2D()
-        e = running_maximum2D()
+        a = gaussian_path()
+        b = running_maximum()
         @test length(a) == 4
         @test length(b) == 4
-        @test length(c) == 4
-        @test size(d) == (4,2)
-        @test size(e) == (4,2)
     end
     @testset "ScenTrees.jl - Tree Approximation 1D" begin
-        paths = [gaussian_path1D,running_maximum1D]
+        paths = [gaussian_path,running_maximum]
         trees = [Tree([1,2,2,2]),Tree([1,3,3,3])]
         samplesize = 100000
         p = 2
@@ -64,7 +58,7 @@ using Test
 
 
     @testset "ScenTrees.jl - Lattice Approximation" begin
-        tstLat = lattice_approximation([1,2,3,4],gaussian_path1D,500000,2,1)
+        tstLat = lattice_approximation([1,2,3,4],gaussian_path,500000,2,1)
         @test length(tstLat.state) == length(tstLat.probability)
         @test round.(sum.(tstLat.probability), digits = 1)  == [1.0, 1.0, 2.0, 3.0] #sum of probs at every stage
     end
