@@ -3,10 +3,6 @@
 [![](https://img.shields.io/badge/docs-dev-blue.svg)](https://rubsc.github.io/ScenTreesMakie.jl/dev)
 
 
-[![](https://img.shields.io/badge/docs-latest-blue.svg)](https://kirui93.github.io/ScenTrees.jl/latest/)
-[![](https://img.shields.io/badge/docs-stable-blue.svg)](https://kirui93.github.io/ScenTrees.jl/stable/)
-[![Zenodo](https://zenodo.org/badge/DOI/10.5281/zenodo.3672205.svg)](https://doi.org/10.5281/zenodo.3672205)
-[![JOSS](https://joss.theoj.org/papers/10.21105/joss.01912/status.svg)](https://doi.org/10.21105/joss.01912)
 
 # ScenTreesMakie.jl
 
