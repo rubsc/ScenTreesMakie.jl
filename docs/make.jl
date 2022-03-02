@@ -14,7 +14,7 @@ makedocs(
 				    "tutorial/tutorial41.md",
 				    "tutorial/tutorial5.md"
 				],
-				"Function Library" => "library.md",
+		"Function Library" => "library.md",
 		]
 )
 
