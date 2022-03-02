@@ -116,7 +116,7 @@ end
 
 
 @testset "helper" begin
-    probs = [1 2 3 4];
+    probs = [1.0, 2.0, 3.0, 4.0];
     ontoSimplex!(probs)
     @test sum(probs) == 1.0
 end
