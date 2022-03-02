@@ -225,6 +225,6 @@ function path_ident(lat::Lattice, path::Function, nIterations::Int64, r::Int64=2
 	tdist = (tdist .* (n - 1) + dist .^(r/2) )/ n
     end
 
-    return( [ states[t][Int(chosenPath[t]),1,1 ] ]  )
+    return( [ states[t][Int(chosenPath[t]),1,1 ] for t=1:T]  )
 
 end

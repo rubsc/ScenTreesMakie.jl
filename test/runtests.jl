@@ -97,5 +97,17 @@ end
 @testset "Approx" begin
     lat = Lattice(304);
 
-    tmp = path_ident(lat, gaussian_path, 1)
+    @test length(path_ident(lat, gaussian_path, 1)) == 4
+
+    trr = Tree(404)
+    @test length(path_ident(trr,gaussian_path, 1)[1]) == 4
+end
+
+@testset "Kernel" begin
+    using Distributions
+    gsdata = Array{Float64}(undef,1000,4)
+    for i = 1:1000
+           gsdata[i,:] = gaussian_path()
+    end
+    @test length(kernel_scenarios(gsdata,Logistic; Markovian = true)()) == 4
 end
