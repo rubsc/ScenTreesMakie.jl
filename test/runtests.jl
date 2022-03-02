@@ -40,7 +40,7 @@ using Test
     @testset "ScenTrees.jl - Tree Approximation 1D" begin
         paths = [gaussian_path,running_maximum]
         trees = [Tree([1,2,2,2]),Tree([1,3,3,3])]
-        samplesize = 100000
+        samplesize = 100001
         p = 2
         r = 2
         tree_plot(trees[1])
@@ -59,7 +59,7 @@ using Test
 
 
     @testset "ScenTrees.jl - Lattice Approximation" begin
-        tstLat = lattice_approximation([1,2,3,4],gaussian_path,500000,2,1)
+        tstLat = lattice_approximation([1,2,3,4],gaussian_path,20001,2,1)
         @test length(tstLat.state) == length(tstLat.probability)
         @test round.(sum.(tstLat.probability), digits = 1)  == [1.0, 1.0, 2.0, 3.0] #sum of probs at every stage
     end
@@ -111,10 +111,35 @@ end
            gsdata[i,:] = gaussian_path()
     end
     @test length(kernel_scenarios(gsdata,Logistic; Markovian = true)()) == 4
+    @test length(kernel_scenarios(gsdata,Logistic; Markovian = false)()) == 4
 end
 
 
 @testset "helper" begin
     probs = [1 2 3 4];
-    tmp = ontoSimplex!(probs)
+    ontoSimplex!(probs)
+    @test sum(probs) == 1.0
+end
+
+
+@testset "TreeStructure" begin
+    @test Tree(0).parent == zeros(Int64 , 0)
+    @test Tree(302).parent ==[0,1,1,2,2,3,3]
+    @test Tree(303).parent == [0,1,2,2,2,2]
+    @test Tree(304).parent == [0,1,2,0,4,5,0,7,8,0,10,11]
+    @test Tree(305).parent == [0,1,2,2,2,2]
+    @test Tree(306).parent == [0,1,1,2,2,3,3]
+    @test Tree(307).parent == [0,1,1,1,1,2,3,4,5]
+    @test Tree(401).parent == [0,1,2,2,3,3,4,4]
+    @test Tree(402).parent == [0,1,1,2,2,3,3,4,4,5,5,6,6,7,7]
+    @test Tree(404).parent == [0,1,1,2,2,3,3,4,4,5,5,6,6,7,7]
+    @test Tree(405).parent == [0,1,2,3,3,2,6,6,6,1,10,10,11,12,12,12]
+
+    @test children(2) == [[1]]
+
+    trr = Tree(404)
+    @test stage(trr, 2) == [1]
+
+    @test length(leaves(trr,2)[1]) == 4
+
 end
