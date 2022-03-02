@@ -4,6 +4,7 @@ mutable struct Lattice
     name::String
     state
     probability
+    
     Lattice(name::String, state, probability) = new(name, state, probability)
 	
     

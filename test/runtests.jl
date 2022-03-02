@@ -1,7 +1,7 @@
 using ScenTreesMakie
 using Test
 
-@testset "ScenTreesMakie.jl" begin
+@testset "Alois.jl" begin
     @testset "Predefined tree - Tree 402" begin
         a = Tree(402)
         @test length(a.parent) == 15
@@ -65,4 +65,24 @@ using Test
 
 
    
+end
+
+
+@testset "LatticeStructure" begin
+    lat = Lattice(302)
+    @test length(lat.state) == 3
+
+    lat = Lattice(303)
+    @test length(lat.state) == 3
+
+    lat = Lattice(304)
+    @test length(lat.state) == 4
+
+    name = "Lattice 1x2x2"
+    state = [[0.0],[-0.856;0.933],[-1.27;1.307]]
+    probability = [[1.0],[0.52;0.48],[0.75 0.25;0.26 0.74]]
+
+    lat = Lattice(name,state,probability)
+    @test lat.name == Lattice(302).name
+    @test lat.state == Lattice(302).state
 end
