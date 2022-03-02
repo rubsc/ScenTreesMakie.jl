@@ -119,6 +119,13 @@ end
     probs = [1.0, 2.0, 3.0, 4.0];
     ontoSimplex!(probs)
     @test sum(probs) == 1.0
+    probs = [1.0, -2.0, 3.0, 4.0];
+    ontoSimplex!(probs)
+    @test sum(probs) == 1.0
+
+    trr = Tree(404);
+    summary(trr)
+
 end
 
 
