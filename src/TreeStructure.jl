@@ -166,7 +166,7 @@ end
 
 Returns the stage of each node in the tree.
 
-Args:
+# Arguments:
 - trr - an instance of a Tree.
 - node - the number of node in the scenario tree you want to know its stage.
 """
@@ -191,10 +191,7 @@ end
 """
 	height(trr::Tree)
 
-Returns the height of the tree which is just the maximum number of the stages of each node.
-
-Args:
-- trr - an instance of a Tree.
+Returns the height of the tree `trr` which is just the maximum number of the stages of each node.
 """
 function height(trr::Tree{A,B,C,D}) where {A,B,C,D}
     return maximum(stage(trr))
@@ -203,11 +200,19 @@ end
 """
 	leaves(trr::Tree,node=Int64[])
 
-Returns the leaf nodes, their indexes and the conditional probabilities.
+Returns the leaf nodes, their indexes and the conditional probabilities based on parent `node`.
 
-Args:
+# Arguments:
 - trr - an instance of a Tree.
-- node - a node in the tree you want to its children.
+- node - a node for which all leaf nodes are found.
+
+# Values
+- leaves - a vector of leaf nodes.
+- omegas - a vector of indizes indicating the order of the elements in `leaves`.
+- prob - the conditional probability of each leaf node conditional on `node`.
+
+If `node` is not given, then `node` is treated as the root node. 
+
 """
 function leaves(trr::Tree{A,B,C,D}, node = Int64[]) where {A,B,C,D}
     nodes = 1 : length(trr.parent)
@@ -240,13 +245,17 @@ end
 """
 	nodes(trr::Tree,t=Int64[])
 
-Returns the nodes in the tree, generally the range of the nodes in the tree.
+Returns the nodes in the tree `trr` at stage `t`.
 
-Args:
-- trr - an instance of a Tree.
-- t  - stage in the tree.
+# Example:
 
-Example : nodes(trr,2) - gives all nodes at stage 2.
+```julia-repl
+julia> trr = Tree(404);
+julia> nodes(trr,1)
+2-element Vector{Int64}:
+ 2
+ 3
+```
 """
 function nodes(trr::Tree{A,B,C,D}, t = Int64[]) where {A,B,C,D}
     nodes = 1 : length(trr.parent)
@@ -262,9 +271,9 @@ end
 	root(trr::Tree,nodes=Int64[])
 Returns the root of the tree if the node is not specified.
 
-Args:
+#Arguments:
 - trr - an instance of Tree.
-- nodes - node in the tree you want to know the sequence from the root.
+- nodes - target node from root.
 
 If `nodes` is not specified, it returns the root of the tree.
 
@@ -294,9 +303,9 @@ end
 
 Returns a reduced tree starting at `node`. If `node` is the root node then original tree is returned. 
 
-Args:
+# Arguments:
 - trr - an instance of Tree
-- node - a node of trr which becomes the new root.
+- node - a node of trr which becomes the new root node.
 """
 function part_tree(trr, node::Int64=0)
     if node == 0 || node == 1
