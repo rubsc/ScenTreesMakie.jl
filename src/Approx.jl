@@ -117,7 +117,7 @@ function lattice_approximation(bstructure::Array{Int64,1}, path::Function, nIter
     end
     Z = Array{Float64}(undef, T, dim) # Array to hold the new samples generated
     #Stochastic approximation step starts here
-    for n = 1 : nIterations
+    @showprogress 1 "Computing..." for n = 1 : nIterations
         Z .= path() # Draw a new sample Gaussian path
         last_index = Int64.(ones(dim))
         dist = zeros(dim)
