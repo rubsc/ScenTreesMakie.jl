@@ -46,7 +46,7 @@ After installing the ScenTreesMakie.jl package, you can use it as in the followi
 
 ```julia
 julia> using ScenTreesMakie
-julia> gstree = tree_approximation!(Tree([1,2,2,2],1),gaussian_path1D,100000,2,2);
+julia> gstree = tree_approximation!(Tree([1,2,2,2]),gaussian_path,100000,2,2);
 julia> tree_plot(gstree)
 ```
 ![Scenario Tree](docs/src/assets/gstree.png)
@@ -67,7 +67,7 @@ julia> using ScenTreesMakie
 julia> using Distributions
 julia> gsdata = Array{Float64}(undef,1000,4)
 julia> for i = 1:1000
-           gsdata[i,:] = gaussian_path1D()
+           gsdata[i,:] = gaussian_path()
        end
 julia> gsGen = kernel_scenarios(gsdata,Logistic; Markovian = true)()
 4-element Array{Float64,1}:
@@ -80,7 +80,7 @@ julia> gsGen = kernel_scenarios(gsdata,Logistic; Markovian = true)()
 To use the above samples for scenario trees or scenario lattice generation:
 
 ```julia
-julia> kerneltree = tree_approximation!(Tree([1,2,2,2],1),kernel_scenarios(gsdata,Logistic;Markovian=false),100000,2,2);
+julia> kerneltree = tree_approximation!(Tree([1,2,2,2]),kernel_scenarios(gsdata,Logistic;Markovian=false),100000,2,2);
 julia> tree_plot(kerneltree)
 julia> kernelLattice = lattice_approximation([1,3,4,5],kernel_scenarios(gsdata,Logistic;Markovian=true),100000,2,1);
 julia> plot_lattice(kernelLattice)
