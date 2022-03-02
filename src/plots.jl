@@ -1,15 +1,22 @@
 """
-	tree_plot(trr::Tree,fig=1)
+	tree_plot(trr::Tree,title=nothing, simple = false, label=nothing)
 
-Returns the plot of the input tree annotated with density of
-probabilities of reaching the leaf nodes in the tree.
-Args:
+Returns the plot of the input tree `trr`.
+
+# Arguments
 - trr - A scenario tree.
-- fig - Specifies the size of the image you want to be returned, default = 1.
+- title - A title for the plot.
+- simple - if simple is true, then unreachable paths are dropped, see details below.
+- label - optional labels with LaTeX support. 
 
-Using the Plots version no Python has to be installed, the gr() backend works best at the moment (Fast and easy to use).
+# Value
+    - returns the plot as a gr() figure.
+
+# Details: 
+    if simple is equal to true then states valued at 0.0 and have 0.0 probability to be reached are not plotted. 
+    To make use of this feature the `check_tree()` routine should be used before (SLOW!)
 """
-function tree_plot(trr::Tree{A,B,C,D},fig = nothing, title = nothing, simple= false, label=nothing) where {A,B,C,D}
+function tree_plot(trr::Tree{A,B,C,D}, title = nothing, simple= false, label=nothing) where {A,B,C,D}
 
     stg = stage(trr)
     tmpX = []; tmpY = [];
@@ -18,7 +25,7 @@ function tree_plot(trr::Tree{A,B,C,D},fig = nothing, title = nothing, simple= fa
             if stg[i] > 0
                 if (trr.state[trr.parent[i]] != 0 && trr.probability[trr.parent[i]] > 0)
                     if trr.state[i] != 0 && trr.probability[i] >0
-			x=[stg[i];stg[i]+1]; y= [trr.state[trr.parent[i]];trr.state[i]];
+			            x=[stg[i];stg[i]+1]; y= [trr.state[trr.parent[i]];trr.state[i]];
                     	tmpX = append!(tmpX,x,NaN)
                     	tmpY = append!(tmpY,y,NaN)
                     end
@@ -51,17 +58,11 @@ end
 
 
 """
-	tree_plot!(trr::Tree,fig=1)
+	tree_plot!(trr::Tree,title=nothing, simple = false, label=nothing)
 
-Returns the plot of the input tree annotated with density of
-probabilities of reaching the leaf nodes in the tree.
-Args:
-- trr - A scenario tree.
-- fig - Specifies the size of the image you want to be returned, default = 1.
-
-Using the Plots version no Python has to be installed, the gr() backend works best at the moment (Fast and easy to use).
+Adds an additional tree plot to an existing plot using `plot!()`. See `tree_plot()` for details.
 """
-function tree_plot!(trr::Tree{A,B,C,D},offset=0,fig = nothing, title = nothing, simple= false, label=nothing) where {A,B,C,D}
+function tree_plot!(trr::Tree{A,B,C,D},offset=0, title = nothing, simple= false, label=nothing) where {A,B,C,D}
 
     stg = stage(trr)
     tmpX = []; tmpY = [];
@@ -70,7 +71,7 @@ function tree_plot!(trr::Tree{A,B,C,D},offset=0,fig = nothing, title = nothing, 
             if stg[i] > 0
                 if (trr.state[trr.parent[i]] != 0 && trr.probability[trr.parent[i]] > 0)
                     if trr.state[i] != 0 && trr.probability[i] >0
-			x=[stg[i]+offset;stg[i]+1+offset]; y= [trr.state[trr.parent[i]];trr.state[i]];
+			            x=[stg[i]+offset;stg[i]+1+offset]; y= [trr.state[trr.parent[i]];trr.state[i]];
                     	tmpX = append!(tmpX,x,NaN)
                     	tmpY = append!(tmpY,y,NaN)
                     end
@@ -138,27 +139,20 @@ function sample_path(trr::Tree{A,B,C,D}, nPath=1, flag_show=true, label=nothing)
 
         ###############
         # Plot stuff
-        if flag_show==true
-        
-            for i = 1 : height(trr)
-                x = [i,i+1]; y = [path_sim[i],path_sim[i+1]]
-                tmpX = append!(tmpX,x,NaN)
-                tmpY = append!(tmpY,y,NaN)
-            end
-            
+        for i = 1 : height(trr)
+            x = [i,i+1]; y = [path_sim[i],path_sim[i+1]]
+            tmpX = append!(tmpX,x,NaN)
+            tmpY = append!(tmpY,y,NaN)
         end
-
+        
     end
-    if flag_show==true
-       if label===nothing
+
+    if label===nothing
         f = plot(tmpX,tmpY,legend=:topleft);
-       else
-          f = plot(tmpX,tmpY,legend=:topleft,label=label);
-       end
-      return(f)
+    else
+        f = plot(tmpX,tmpY,legend=:topleft,label=label);
     end
-
-    return(0)
+    return(f)
 end
 
 
@@ -167,15 +161,28 @@ end
 ########################################################################################################
 
 
-
 """
-	PlotLattice(lt::Lattice,fig=1)
+	lat_plot(lt::Lattice,title = nothing, label=nothing)
 
-Returns a plot of a lattice.
+Returns a plot of a scenario lattice.
+
+# Arguments
+- lt - A scenario lattice.
+- title - A title for the plot.
+- simple - if simple is true, then unreachable paths are dropped, see details below.
+- label - optional labels with LaTeX support. 
+
+# Value
+    - returns the plot as a gr() figure.
+
+# Details: 
+    if simple is equal to true then states valued at 0.0 and have 0.0 probability to be reached are not plotted. 
+    To make use of this feature the `check_tree()` routine should be used before (SLOW!)
+
 There might connections with zero probability -->
 these shouldn't be plotted! TODO
 """
-function lat_plot(lt::Lattice,fig = nothing, title = nothing, label=nothing)
+function lat_plot(lt::Lattice, title = nothing,simple=false, label=nothing)
     
     tmpX = []; tmpY = [];
 
@@ -201,11 +208,13 @@ end
 
 
 """
-Plots a given vector ontop of the tree/lattice
+    plot_path!(path)
+
+Plots a given vector `path` on top of the tree/lattice
 
 
 """
-function plot_path!(path,fig=nothing)
+function plot_path!(path)
     tmpX = []; tmpY = [];
     for t=2:length(path)
         x = [t-1:t]; y = [path[t-1];path[t]];
