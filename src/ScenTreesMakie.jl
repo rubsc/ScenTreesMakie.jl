@@ -26,4 +26,5 @@ export tree_approximation!,lattice_approximation,
         tree_path,
         tree_plot, lat_plot, sample_path,
         path_ident, plot_path!
+        structure
 end

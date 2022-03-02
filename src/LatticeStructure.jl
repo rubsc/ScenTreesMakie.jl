@@ -2,9 +2,9 @@
 
 mutable struct Lattice
     name::String
-    state::Array{Array{Float64,3},1}
-    probability::Array{Array{Float64,3},1}
-    Lattice(name::String, state::Array{Array{Float64,3},1}, probability::Array{Array{Float64,3},1}) = new(name, state, probability)
+    state
+    probability
+    Lattice(name::String, state, probability) = new(name, state, probability)
 	
     
 
@@ -31,3 +31,16 @@ end
 # Include helper functions for lattices here
 # similar to Tree structure
 
+
+function structure(lat::Lattice)
+    bs = [length(lat.state[i]) for i=1:length(lat.state)]; 
+
+    paths = 0
+    for i=2:length(bs)
+        paths += bs[i-1]*bs[i]
+    end
+
+    nodes = sum(bs)
+
+    return bs, nodes,paths
+end
