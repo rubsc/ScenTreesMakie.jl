@@ -16,7 +16,7 @@ include("StochPaths.jl")
 include("KernelDensityEstimation.jl")
 include("plots.jl")
 include("helper.jl")
-include("Wasserstein")
+include("Wasserstein.jl")
 
 
 export tree_approximation!,lattice_approximation,
