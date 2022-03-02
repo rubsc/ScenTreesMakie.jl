@@ -1,6 +1,6 @@
-using LinearAlgebra
+
 using JuMP, Clp
-include("ontoSimplex.jl")
+
 
 
 function distFunction(states1::Vector{Float64}, states2::Vector{Float64})::Array{Float64,2}
