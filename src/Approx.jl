@@ -216,7 +216,7 @@ end
 
 
 
-function path_ident(lat::Lattice, path::Function, nIteration::Int64, r::Int64=2)
+function path_ident(lat::Lattice, path::Function, nIterations::Int64, r::Int64=2)
     tdist = 0.0
     T = length(lat.state)
 

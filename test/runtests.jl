@@ -85,4 +85,17 @@ end
     lat = Lattice(name,state,probability)
     @test lat.name == Lattice(302).name
     @test lat.state == Lattice(302).state
+
+    @test structure(lat)[1] == [1,2,2]
+    @test structure(lat)[2] == 5
+    @test structure(lat)[3] == 6
+    @test structure(lat)[4] == 4
+
+end
+
+
+@testset "Approx" begin
+    lat = Lattice(304);
+
+    tmp = path_ident(lat, gaussian_path, 1)
 end
