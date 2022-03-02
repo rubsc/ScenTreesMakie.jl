@@ -153,21 +153,6 @@ function lattice_approximation(bstructure::Array{Int64,1}, path::Function, nIter
 
         return Lattice("Approximated Lattice with $bstructure branching structure and distance=$(tdist .^ (1 / r)) at $(nIterations) iterations",
         [round.(states[i], digits = 6) for i = 1 : length(states)], [round.(probabilities[j], digits = 6) for j = 1 : length(probabilities)])
-    else
-        lattices = Lattice[] # create an empty array of type Lattice to hold the resulting lattices
-        for i = 1 : length(states[1])
-            st = [zeros(bstructure[j], 1, 1) for j = 1 : length(states)]
-            pp = vcat([zeros(bstructure[1], 1, 1)],[zeros(bstructure[j-1] , bstructure[j], 1) for j = 2 : length(states)])
-
-            for j = 1 : length(states)
-                st[j] .= states[j][:, :, i]
-                pp[j] .= probabilities[j][:, :, i]
-            end
-            sublattice = Lattice("Lattice $i with distance=$((tdist.^(1/r))[i])",
-            [round.(st[i], digits = 6) for i = 1 : length(st)], [round.(pp[j], digits = 6) for j = 1 : length(pp)])
-            push!(lattices,sublattice)
-        end
-        return lattices
     end
 end
 
