@@ -1,5 +1,5 @@
 [![Build Status](https://github.com/rubsc/ScenTreesMakie.jl/actions/workflows/CI.yml/badge.svg?branch=main)](https://github.com/rubsc/ScenTreesMakie.jl/actions/workflows/CI.yml?query=branch%3Amain)
-[![Coverage](https://codecov.io/gh/rubsc/ScenTreesMakie.jl/branch/main/graph/badge.svg)](https://codecov.io/gh/rubsc/ScenTreesMakie.jl)
+[![codecov](https://codecov.io/gh/rubsc/ScenTreesMakie.jl/branch/main/graph/badge.svg?token=nmUjMAd0b2)](https://codecov.io/gh/rubsc/ScenTreesMakie.jl)
 [![](https://img.shields.io/badge/docs-stable-blue.svg)](https://rubsc.github.io/ScenTreesMakie.jl/stable)
 [![](https://img.shields.io/badge/docs-dev-blue.svg)](https://rubsc.github.io/ScenTreesMakie.jl/dev)
 
