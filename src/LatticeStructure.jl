@@ -30,17 +30,36 @@ end
 ######################################################################################
 # Include helper functions for lattices here
 # similar to Tree structure
+"""
+    structure(lat::Lattice)
+
+Provides a summary on the branching structure of the lattice `lat`.
+
+# Values
+   - `bs`: vector indicating the number of nodes in each stage, i.e. the branching structure.
+   - `nodes`: the total number of nodes.
+   - `edges`: the total number of edges.
+   - `paths`: the total number of unique paths.
 
 
+# Example
+```jldoctest
+julia> lat = Lattice(304);
+julia> structure(lat)
+([1, 2, 3, 4], 10, 20, 24)
+```
+
+"""
 function structure(lat::Lattice)
     bs = [length(lat.state[i]) for i=1:length(lat.state)]; 
 
-    paths = 0
+    edges = 0
     for i=2:length(bs)
-        paths += bs[i-1]*bs[i]
+        edges += bs[i-1]*bs[i]
     end
 
     nodes = sum(bs)
+    paths = prod(bs)
 
-    return bs, nodes,paths
+    return bs, nodes,edges, paths
 end
