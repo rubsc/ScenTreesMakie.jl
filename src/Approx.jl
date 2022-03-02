@@ -1,4 +1,4 @@
-
+using ProgressMeter
 
 """
 	tree_approximation!(newtree::Tree, path::Function, nIterations::Int64, p::Int64=2, r::Int64=2)
@@ -26,7 +26,7 @@ function tree_approximation!(newtree::Tree{A,B,C,D}, path::Function, nIterations
     probaNode = nodes(newtree)                                # all nodes of the tree
     path_to_leaves = [root(newtree, i) for i in leaf]         # all the paths from root to the leaves
     path_to_all_nodes = [root(newtree, j) for j in probaNode] # all paths to other nodes
-    for k = 1 : nIterations
+    @showprogress 1 "Computing..." for k = 1 : nIterations
 
         # Critical == 0 if n >4!!! This is almost always the case
         critical = max(0.0, 0.2 * sqrt(k) - 0.1 * n)
