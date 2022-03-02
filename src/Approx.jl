@@ -24,7 +24,7 @@ function tree_approximation!(newtree::Tree{A,B,C,D}, path::Function, nIterations
     probaNode = nodes(newtree)                                # all nodes of the tree
     path_to_leaves = [root(newtree, i) for i in leaf]         # all the paths from root to the leaves
     path_to_all_nodes = [root(newtree, j) for j in probaNode] # all paths to other nodes
-    @showprogress 1 "Computing..." for k = 1 : nIterations
+    @showprogress 100 "Computing..." for k = 1 : nIterations
 
         # Critical == 0 if n >4!!! This is almost always the case
         critical = max(0.0, 0.2 * sqrt(k) - 0.1 * n)
@@ -117,7 +117,7 @@ function lattice_approximation(bstructure::Array{Int64,1}, path::Function, nIter
     end
     Z = Array{Float64}(undef, T, dim) # Array to hold the new samples generated
     #Stochastic approximation step starts here
-    @showprogress 1 "Computing..." for n = 1 : nIterations
+    @showprogress 100 "Computing..." for n = 1 : nIterations
         Z .= path() # Draw a new sample Gaussian path
         last_index = Int64.(ones(dim))
         dist = zeros(dim)
