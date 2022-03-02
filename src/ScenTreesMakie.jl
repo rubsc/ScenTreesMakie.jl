@@ -25,6 +25,8 @@ export tree_approximation!,lattice_approximation,
         gaussian_path, running_maximum, path,kernel_scenarios, 
         tree_path, tree_plot, lat_plot, sample_path,  plot_path!,
 
-        path_ident
+        path_ident,
+
+        ontoSimplex!, summary
         
 end

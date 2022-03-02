@@ -1,6 +1,7 @@
 using ScenTreesMakie
 using Test
 
+
 @testset "Alois.jl" begin
     @testset "Predefined tree - Tree 402" begin
         a = Tree(402)
@@ -110,4 +111,10 @@ end
            gsdata[i,:] = gaussian_path()
     end
     @test length(kernel_scenarios(gsdata,Logistic; Markovian = true)()) == 4
+end
+
+
+@testset "helper" begin
+    probs = [1 2 3 4];
+    tmp = ontoSimplex!(probs)
 end
