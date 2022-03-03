@@ -4,7 +4,6 @@ authors = ["Ruben Schlotter <ruben.schlotter@gmail.com>"]
 version = "0.1.2"
 
 [deps]
-BenchmarkTools = "6e4b80f9-dd63-53aa-95a3-0cdb28fa8baf"
 Clp = "e2554f3b-3117-50c0-817c-e040a3ddf72d"
 DataFrames = "a93c6f00-e57d-5684-b7b6-d8193f3e46c0"
 Distributions = "31c24e10-a181-5473-b8eb-7969acd0382f"
