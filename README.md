@@ -56,7 +56,7 @@ julia> tree_plot(gstree)
 
 ```julia
 julia> using ScenTreesMakie
-julia> rmlattice = lattice_approximation([1,2,3,4],running_maximum1D,100000,2,1);
+julia> rmlattice = lattice_approximation([1,2,3,4],running_maximum,100000,2,1);
 julia> plot_lattice(rmlattice)
 ```
 ![Scenario Lattice](docs/src/assets/rmlattice.png)
