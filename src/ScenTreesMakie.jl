@@ -25,7 +25,7 @@ export tree_approximation!,lattice_approximation,
         stage,height,leaves,nodes,root, children, part_tree,build_probabilities!, checkTree,
         structure,
         gaussian_path, running_maximum, path,kernel_scenarios, 
-        tree_path, tree_plot, lat_plot, sample_path,  plot_path!,
+        tree_path, tree_plot,tree_plot!, lat_plot, sample_path,  plot_path!,
 
         path_ident,  
 
