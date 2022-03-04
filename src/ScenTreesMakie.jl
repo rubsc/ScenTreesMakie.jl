@@ -19,8 +19,8 @@ include("helper.jl")
 include("Wasserstein.jl")
 
 
-export tree_approximation!,lattice_approximation,
-        Tree, Lattice,
+export Tree, Lattice,
+        tree_approximation!,lattice_approximation,
 
         stage,height,leaves,nodes,root, children, part_tree,build_probabilities!, checkTree,
         structure,
