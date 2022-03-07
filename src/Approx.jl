@@ -75,8 +75,10 @@ function tree_approximation!(newtree::Tree{A,B,C,D}, path::Function, nIterations
         newtree.state[StPath] = newtree.state[StPath] - delta .* ak
     end
 
-    #probabilities  = map(plf -> plf / sum(probaLeaf), probaLeaf) #divide every element by the sum of all elements
     probabilities = probaLeaf./sum(probaLeaf)   # this is faster than map()
+	# probaLeaf = probabilities * nIterations?
+	# this can be used for continuing approximation
+	
     t_dist = (sum(d .* hcat(probabilities)) / nIterations) .^ (1 / r)
     newtree.name = "$(newtree.name) with d=$(t_dist) at $(nIterations) iterations"
     newtree.probability .= build_probabilities!(newtree, hcat(probabilities)) #build the probabilities of this tree
