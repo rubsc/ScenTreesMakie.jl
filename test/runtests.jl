@@ -98,7 +98,7 @@ end
 @testset "Approx" begin
     lat = Lattice(304);
 
-    @test length(path_ident(lat, gaussian_path, 1)) == 4
+    @test length(path_ident(lat, gaussian_path, 1)[1]) == 4
 
     trr = Tree(404)
     @test length(path_ident(trr,gaussian_path, 1)[1]) == 4
