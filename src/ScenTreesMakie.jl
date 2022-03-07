@@ -24,7 +24,7 @@ export Tree, Lattice,
 
         stage,height,leaves,nodes,root, children, part_tree,build_probabilities!, checkTree,
         structure, part_lattice
-        gaussian_path, running_maximum, path,kernel_scenarios, 
+        gaussian_path, running_maximum, kernel_scenarios, 
         tree_path, tree_plot,tree_plot!, lat_plot, sample_path,  plot_path!,
 
         path_ident,  
