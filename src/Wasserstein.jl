@@ -5,7 +5,7 @@ using JuMP, Clp
 """
     distFunction(states1::Vector{Float64}, states2::Vector{Float64})::Array{Float64,2}
 
-Calculates the distance $|x-y|$ between all points of `states1` and `states2`. 
+Calculates the distance abs(x-y) between all points of `states1` and `states2`. 
 """
 function distFunction(states1::Vector{Float64}, states2::Vector{Float64})::Array{Float64,2}
     n1= length(states1); n2= length(states2)
