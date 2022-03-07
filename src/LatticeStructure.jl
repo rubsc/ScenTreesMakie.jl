@@ -64,3 +64,40 @@ function structure(lat::Lattice)
 
     return bs, nodes,edges, paths
 end
+
+
+
+
+"""
+    part_lattice(lat, hist=nothing)
+
+Provides a subtree given an observed history `hist`. If no history is provided the lattice is returned.
+
+
+# Example
+	lat = Lattice(304);
+	hist = [1 2]
+	part_lattice(lat, hist)
+"""
+function part_lattice(lat, hist=nothing)
+    if (hist === nothing || hist == [])
+        return(lat)
+    end
+    tmp_states = []; tmp_prob = [];
+    lat2 = deepcopy(lat)
+    for t=1:length(hist)
+        push!(tmp_states,lat.state[t][Int(hist[t]),1,1 ])
+        push!(tmp_prob,lat.probability[t][1,Int(hist[t]),1])
+        if t>1
+            deleteat!(lat2.state, 2) # delete everything after initial node up to observed history
+            deleteat!(lat2.probability, 2) # stages move up hence 2nd entry is deleted mulitple times
+        end
+    end
+
+    lat2.state[1] .= tmp_states[end];
+    
+
+    return(lat2)
+ 
+    
+end
