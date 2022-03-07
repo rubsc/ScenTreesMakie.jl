@@ -2,7 +2,11 @@
 using JuMP, Clp
 
 
+"""
+    distFunction(states1::Vector{Float64}, states2::Vector{Float64})::Array{Float64,2}
 
+Calculates the distance $|x-y|$ between all points of `states1` and `states2`. 
+"""
 function distFunction(states1::Vector{Float64}, states2::Vector{Float64})::Array{Float64,2}
     n1= length(states1); n2= length(states2)
     dMatrix= Array{Float64}(undef, (n1,n2))
@@ -13,8 +17,15 @@ function distFunction(states1::Vector{Float64}, states2::Vector{Float64})::Array
 end
 
 
-#	computes the Wasserstein distance
-function Wasserstein(p1::Vector{Float64}, p2::Vector{Float64}, distMatrix::Array{Float64,2}, rWasserstein::Float64=1.)
+
+"""
+    Wasserstein(p1::Vector{Float64}, p2::Vector{Float64}, distMatrix::Array{Float64,2}, r::Float64=1.)
+
+Calculates the Wasserstein with marginal distributions `p1` and `p2` for the distance matrix `distMatrix. 
+
+Optionally the Hölder norm can be specified. The distance together with the optimal transport density is outputted. 
+"""
+function Wasserstein(p1::Vector{Float64}, p2::Vector{Float64}, distMatrix::Array{Float64,2}, r::Float64=1.)
 	ontoSimplex!(p1); ontoSimplex!(p2)
     n1= length(p1);   n2= length(p2)
 
@@ -23,19 +34,19 @@ function Wasserstein(p1::Vector{Float64}, p2::Vector{Float64}, distMatrix::Array
 
 	model = Model(Clp.Optimizer)
 	@variable(model, x[i=1:n1*n2] >= 0)
-	@objective(model, Min, vec(distMatrix.^rWasserstein)' * x)
+	@objective(model, Min, vec(distMatrix.^r)' * x)
 	@constraint(model, [A;B] * x .== [p1;p2])
 	optimize!(model)
-    return (distance= (objective_value(model))^(1/ rWasserstein), π= reshape(value.(x), (n1, n2)))
+    return (distance= (objective_value(model))^(1/ r), π= reshape(value.(x), (n1, n2)))
 end
 
 
 #	Sinkhorn-Knopp iteration algorithm
-function Sinkhorn(p1::Vector{Float64}, p2::Vector{Float64}, distMatrix::Array{Float64,2}, rWasserstein::Float64= 1., λ::Float64= 1.)
+function Sinkhorn(p1::Vector{Float64}, p2::Vector{Float64}, distMatrix::Array{Float64,2}, r::Float64= 1., λ::Float64= 1.)
 	ontoSimplex!(p1); ontoSimplex!(p2); count= 0
 	βr= Array{Float64}(undef, length(p1));
 	γc= ones(size(p2))		# guess a starting value
-	distMatrix.^= rWasserstein; K= exp.(-λ * distMatrix)
+	distMatrix.^= r; K= exp.(-λ * distMatrix)
 	while count < 1000		# Sinkhorn iteration
 		γc= γc./ (p2'*γc)		# rescale
 		βr= p1./ (K* γc)		# vector operation
@@ -44,10 +55,16 @@ function Sinkhorn(p1::Vector{Float64}, p2::Vector{Float64}, distMatrix::Array{Fl
 	end
 #	println("r=", βr, p1'*βr); println("c=", γc, p2'*γc)
 	π= Diagonal(βr)*K*Diagonal(γc)
-	return (distance= (sum(π.* distMatrix)) ^(1/rWasserstein), π= π)
+	return (distance= (sum(π.* distMatrix)) ^(1/r), π= π)
 end
 
 
+
+"""
+    nestedWasserstein(trr1,trr2,r=2)
+
+Calculates the nested distance based on the Wasserstein distance for two trees `trr1` and `trr2` Optionally the Hölder norm `r` can be specified.  
+"""
 function nestedWasserstein(trr1,trr2,r=2)
     T = height(trr1)
 
