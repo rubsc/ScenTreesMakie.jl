@@ -48,20 +48,36 @@ function Sinkhorn(p1::Vector{Float64}, p2::Vector{Float64}, distMatrix::Array{Fl
 end
 
 
-function nestedWasserstein(trr1,trr2, rWasserstein::Float64=1.)
-	#ToDo: make nested version for trees and lattices
-	#ontoSimplex!(p1); ontoSimplex!(p2)
-    	#n1= length(p1);   n2= length(p2)
+function nestedWasserstein(trr1,trr2,r=2)
+    T = height(trr1)
 
-    	#A= kron(ones(n2)', Matrix{Float64}(I, n1, n1))
-    	#B= kron(Matrix{Float64}(I, n2, n2), ones(n1)')
+    #@assert T == height(trr2)
+    d_new = Array{Float64}(undef,length(nodes(trr1,T-1)),length(nodes(trr2,T-1))).*0.0
+    for t= T-1:-1:0
+        d_new = Array{Float64}(undef,length(nodes(trr1,t)),length(nodes(trr2,t))).*0.0
+        k=1;
+        l=1;
+        for i ∈ nodes(trr1,t)
+            #probability of transitioning from i to somewhere
+            p1 = trr1.probability[trr1.children[i+1]]
+            for j ∈ nodes(trr2,t)
+                p2 = trr2.probability[trr2.children[j+1]]
+                d_old = distFunction(trr1.state[trr1.children[i+1]],trr2.state[trr2.children[j+1]])
 
-	#model = Model(Clp.Optimizer)
-	#@variable(model, x[i=1:n1*n2] >= 0)
-	#@objective(model, Min, vec(distMatrix.^rWasserstein)' * x)
-	#@constraint(model, [A;B] * x .== [p1;p2])
-	#optimize!(model)
-    #return (distance= (objective_value(model))^(1/ rWasserstein), π= reshape(value.(x), (n1, n2)))
+                # p1 is marginal probability of transition for trr1
+                d_new[k,l] = Wasserstein(p1,p2,d_old,2.0)[1]
+                l = l+1
+            end
+            k=k+1
+            l=1
+        end
+        d_old=d_new
+
+
+    end
+
+    return(d_new[1,1])
+
 end
 
 
