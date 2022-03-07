@@ -48,6 +48,23 @@ function Sinkhorn(p1::Vector{Float64}, p2::Vector{Float64}, distMatrix::Array{Fl
 end
 
 
+function nestedWasserstein(trr1,trr2, rWasserstein::Float64=1.)
+	#ToDo: make nested version for trees and lattices
+	#ontoSimplex!(p1); ontoSimplex!(p2)
+    	#n1= length(p1);   n2= length(p2)
+
+    	#A= kron(ones(n2)', Matrix{Float64}(I, n1, n1))
+    	#B= kron(Matrix{Float64}(I, n2, n2), ones(n1)')
+
+	#model = Model(Clp.Optimizer)
+	#@variable(model, x[i=1:n1*n2] >= 0)
+	#@objective(model, Min, vec(distMatrix.^rWasserstein)' * x)
+	#@constraint(model, [A;B] * x .== [p1;p2])
+	#optimize!(model)
+    #return (distance= (objective_value(model))^(1/ rWasserstein), π= reshape(value.(x), (n1, n2)))
+end
+
+
 # #	Sinkhorn-Knopp algorithm
 # function Sinkhorn(p1::Vector{Float64}, p2::Vector{Float64}, distMatrix::Array{Float64,2}, rWasserstein::Float64= 1., λ::Float64= 1.)
 # 	ontoSimplex!(p1); ontoSimplex!(p2)
