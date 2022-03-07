@@ -176,10 +176,7 @@ function path_ident(trr, path::Function, nIterations::Int64, r::Int64=2, p::Int6
     path_to_all_nodes = [root(trr, j) for j in probaNode] # all paths to other nodes
     for k = 1 : nIterations
         
-        critical = max(0.0, 0.2 * sqrt(k) - 0.1 * n)
-        tmp = Int64[inx for (inx, ppf) in enumerate(probaLeaf) if ppf <= critical]
-
-        samplepath .= vec(path())  # a new trajectory to update the values on the nodes
+       samplepath .= vec(path())  # a new trajectory to update the values on the nodes
 
         #To the step  of STOCHASTIC COMPUTATIONS
         endleaf = 0 #start from the root
