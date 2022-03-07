@@ -81,13 +81,3 @@ function nestedWasserstein(trr1,trr2,r=2)
 end
 
 
-# #	Sinkhorn-Knopp algorithm
-# function Sinkhorn(p1::Vector{Float64}, p2::Vector{Float64}, distMatrix::Array{Float64,2}, rWasserstein::Float64= 1., λ::Float64= 1.)
-# 	ontoSimplex!(p1); ontoSimplex!(p2)
-# 	π= exp.(-λ * (distMatrix.^ rWasserstein))
-# 	for i= 1:100
-# 		π.*= (p2'./ sum(π, dims=1)) # scale to sum of column= 1
-# 		π.*= (p1 ./ sum(π, dims=2)) # scale to sum of lines= 1
-# 	end
-# 	return (distance= sum(π.* distMatrix)^(1/ rWasserstein), π= π)
-# end
