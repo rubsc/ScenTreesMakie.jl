@@ -31,6 +31,6 @@ export Tree, Lattice,
 
         ontoSimplex!, summary,
 
-        distFunction, Wasserstein, Sinkhorn
+        distFunction, Wasserstein, Sinkhorn, nestedWasserstein
         
 end
