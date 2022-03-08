@@ -80,8 +80,9 @@ function nestedWasserstein(trr1,trr2,r=2)
             p1 = trr1.probability[trr1.children[i+1]]
             for j ∈ nodes(trr2,t)
                 p2 = trr2.probability[trr2.children[j+1]]
-                d_old = distFunction(trr1.state[trr1.children[i+1]],trr2.state[trr2.children[j+1]])
-
+	        if k==1
+                	d_old = distFunction(trr1.state[trr1.children[i+1]],trr2.state[trr2.children[j+1]])
+		end
                 # p1 is marginal probability of transition for trr1
                 d_new[k,l] = Wasserstein(p1,p2,d_old,2.0)[1]
                 l = l+1
