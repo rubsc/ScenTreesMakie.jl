@@ -1,6 +1,4 @@
 
-using JuMP, Clp
-
 
 """
     distFunction(states1::Vector{Float64}, states2::Vector{Float64})::Array{Float64,2}
@@ -68,8 +66,9 @@ Calculates the nested distance based on the Wasserstein distance for two trees `
 """
 function nestedWasserstein(trr1,trr2,r=2)
     T = height(trr1)
-
+    cumulProb!(trr1); cumulProb!(trr2);
     #@assert T == height(trr2)
+    trr3 = deepcopy(trr1)
     d_new = Array{Float64}(undef,length(nodes(trr1,T-1)),length(nodes(trr2,T-1))).*0.0
     for t= T-1:-1:0
         d_new = Array{Float64}(undef,length(nodes(trr1,t)),length(nodes(trr2,t))).*0.0
@@ -80,16 +79,19 @@ function nestedWasserstein(trr1,trr2,r=2)
             p1 = trr1.probability[trr1.children[i+1]]
             for j ∈ nodes(trr2,t)
                 p2 = trr2.probability[trr2.children[j+1]]
-	        if k==1
+	            if k==1
                 	d_old = distFunction(trr1.state[trr1.children[i+1]],trr2.state[trr2.children[j+1]])
-		end
+		        end
                 # p1 is marginal probability of transition for trr1
+
                 d_new[k,l] = Wasserstein(p1,p2,d_old,2.0)[1]
                 l = l+1
+                
             end
             k=k+1
             l=1
         end
+        println(d_new)
         d_old=d_new
 
 

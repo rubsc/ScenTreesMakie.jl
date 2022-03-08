@@ -6,6 +6,8 @@ using Distributions, Random
 rng = MersenneTwister(01012019);
 using Statistics, LinearAlgebra
 using ProgressMeter
+using JuMP, Clp
+using NLopt
 gr()
 
 include("TreeStructure.jl")

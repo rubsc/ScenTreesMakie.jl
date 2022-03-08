@@ -368,23 +368,47 @@ end
 
 # Checks if probabilities are strictly positive and if not adjusts slightly. 
 # What adjustments can be justified have to be determined in each instance.
+"""
+    checkTree(tree0::Tree{A,B,C,D}, eps) where {A,B,C,D}
 
-function checkTree(tree0::Tree{A,B,C,D}, eps) where {A,B,C,D}
+Transitions with zero probability are given positive probability `eps` such that conditional probabilities sum up to 1.0.
+
+The correct adjustment can only be justified for each individual tree. Be careful in using this function as it can drastically alter
+the tree process described by `tree0`.
+
+"""
+function checkTree(trr::Tree{A,B,C,D}, eps) where {A,B,C,D}
 
     # For every parent node going backwards
-    tmp = reverse(unique(tree0.parent)); pop!(tmp)
+    tmp = reverse(unique(trr.parent)); pop!(tmp)
     for i in tmp
         #Note that the probs are the conditional ones
-        prob = tree0.probability[tree0.children[i+1]]
+        prob = trr.probability[trr.children[i+1]]
         if any(x->x>0,prob)
           #do nothing
         else
           prob = prob .+ eps
           prob = prob./ sum(prob)
-          println()
-          println("updated tree")
+          trr.probability[trr.children[i+1]] = prob
         end
-      end
+
+     end
+     
+end
     
-    end
-    
+
+"""
+    cumulProb!(trr::Tree{A,B,C,D}) where {A,B,C,D}
+
+modifies the probability vector of `trr` to show cumulative probabilities instead of conditional ones.
+"""
+function cumulProb!(trr::Tree{A,B,C,D}) where {A,B,C,D}
+    for (index, node) in enumerate(trr.parent)
+        if node==0
+            #do nothing
+        else
+            trr.probability[index] = trr.probability[index] * trr.probability[node]
+        end
+    end 
+    return(trr)
+end

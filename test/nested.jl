@@ -5,10 +5,27 @@
 # can we write a function adjusting the states so that process becomes monotone?
 # resulting tree should be very close (in nested distance) to original process
 
-using NLopt
 
-trr1 = Tree(404);
-trr2 = Tree(404);
+trr1 = Tree([1,2,1]); trr1.state = [2, 3,2,3,1]; trr1.probability = [1; 0.5; 0.5; 1; 1];
+trr2 = Tree([1,1,2]); trr2.state = [2,2,3,1]; trr2.probability = [1;0.5;0.5];
+
+distMatrix = distFunction(trr1.state[4:5],trr2.state[3:4])
+distMatrix = distMatrix .+ distFunction(trr1.state[2:3],[trr2.state[2]])
+Wasserstein()
+
+trr1.state = collect(1:15)
+nestedWasserstein(trr1,trr2,1)
+
+
+
+
+
+
+
+
+
+
+#########################################
 
 function myfunc(x::Vector)
     
