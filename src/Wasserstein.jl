@@ -33,6 +33,7 @@ function Wasserstein(p1::Vector{Float64}, p2::Vector{Float64}, distMatrix::Array
     B= kron(Matrix{Float64}(I, n2, n2), ones(n1)')
 
 	model = Model(Clp.Optimizer)
+	set_silent(model)
 	@variable(model, x[i=1:n1*n2] >= 0)
 	@objective(model, Min, vec(distMatrix.^r)' * x)
 	@constraint(model, [A;B] * x .== [p1;p2])
