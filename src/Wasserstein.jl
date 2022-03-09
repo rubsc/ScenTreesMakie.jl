@@ -35,7 +35,7 @@ function Wasserstein(p1::Vector{Float64}, p2::Vector{Float64}, distMatrix::Array
 	@variable(model, x[i=1:n1*n2] >= 0)
 	@objective(model, Min, vec(distMatrix.^r)' * x)
 	@constraint(model, [A;B] * x .== [p1;p2])
-	optimize!(model)
+	JuMP.optimize!(model)
     return (distance= (objective_value(model))^(1/ r), π= reshape(value.(x), (n1, n2)))
 end
 
@@ -64,41 +64,36 @@ end
 
 Calculates the nested distance based on the Wasserstein distance for two trees `trr1` and `trr2` Optionally the Hölder norm `r` can be specified.  
 """
-function nestedWasserstein(trr1,trr2,r=2)
+function nestedWasserstein(trr1,trr2,r=1.0)
     T = height(trr1)
-    cumulProb!(trr1); cumulProb!(trr2);
-    #@assert T == height(trr2)
-    trr3 = deepcopy(trr1)
-    d_new = Array{Float64}(undef,length(nodes(trr1,T-1)),length(nodes(trr2,T-1))).*0.0
+    #cumulProb!(trr1); cumulProb!(trr2);
+
+    #d_new = Array{Float64}(undef,length(nodes(trr1,T)),length(nodes(trr2,T))).*0.0
+
+    # initialize with all combinations of leave nodes of trr1 and trr2
+    l1 = leaves(trr1)[1]; l2 = leaves(trr2)[1];
+    d_new = distFunction(trr1.state[l1],trr2.state[l2]) 
+
+
     for t= T-1:-1:0
-        d_new = Array{Float64}(undef,length(nodes(trr1,t)),length(nodes(trr2,t))).*0.0
-        k=1;
-        l=1;
-        for i ∈ nodes(trr1,t)
+       
+        for (index1,i) in enumerate(nodes(trr1,t))
             #probability of transitioning from i to somewhere
             p1 = trr1.probability[trr1.children[i+1]]
-            for j ∈ nodes(trr2,t)
+            for (index2,j) in enumerate(nodes(trr2,t))
                 p2 = trr2.probability[trr2.children[j+1]]
-	            if k==1
-                	d_old = distFunction(trr1.state[trr1.children[i+1]],trr2.state[trr2.children[j+1]])
-		        end
-                # p1 is marginal probability of transition for trr1
-
-                d_new[k,l] = Wasserstein(p1,p2,d_old,2.0)[1]
-                l = l+1
-                
+                #subset d_old for relevant index1/i and index2/j values
+                ind1 = [findall(x->x==trr1.children[i+1][k], l1)[1] for k=1:length(trr1.children[i+1]) ]
+                ind2 = [findall(x->x==trr2.children[j+1][k], l2)[1] for k=1:length(trr2.children[j+1]) ]
+                d_old = d_new[ind1,ind2]
+                # p1 is conditional (marginal) probability of transition for trr1
+                d_new[index1,index2] = Wasserstein(p1,p2,d_old,r)[1]
             end
-            k=k+1
-            l=1
+
         end
-        println(d_new)
-        d_old=d_new
-
-
+        l1 = nodes(trr1,t); l2 = nodes(trr2,t)
     end
-
     return(d_new[1,1])
-
 end
 
 

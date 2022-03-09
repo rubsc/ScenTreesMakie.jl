@@ -176,3 +176,18 @@ println()
 @test A.π ≈ [0.2 0.1 0.0 0.0 0.0; 0.0 0.2 0.2 0.1 0.2] atol = 0.02
 
 end
+
+
+
+@testset "nested distance" begin
+    trr1 = Tree([1,2,2,2]); trr2 = Tree([1,2,2,2]);
+    trr1.state = [0,0,0,0,0,0,0,1,3,20,40,2,4,21,41];
+    trr2.state = [0,0,0,0,0,0,0,1,21,3,41,2,20,4,40];
+
+    trr1.probability = [1.0,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5];
+    trr2.probability = trr1.probability;
+
+    @test nestedWasserstein(trr1,trr2,2) == 8.75
+
+
+end
