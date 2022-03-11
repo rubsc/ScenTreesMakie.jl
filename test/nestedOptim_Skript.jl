@@ -83,8 +83,15 @@ end
 ###################
 function myConstraint2(x)
     
+    # lower bound such that process is monotonically increasing
     lb = trr1.state[trr1.parent[2:end]]
-    return( sum( max.([0;lb] .- x,0)) )    
+    tmp = sum( max.([0;lb] .- x,0))
+
+    #upper bound such that fitted tree does not exceed original tree (significantly)
+    ub = maximum(trr2.state);
+    tmp2 = sum(max.(x .- ub,0) )
+
+    return( tmp + tmp2 )    
 end
 
 function myRegularizedFunction(x)
@@ -92,11 +99,13 @@ function myRegularizedFunction(x)
 
 end
 
-trr1 = Tree(303);
-trr2 = Tree(303);
+trr1 = Tree(404);
+trr2 = Tree(404);
 n = length(trr1.state);
-x0 = collect(1:n)*1.0; alpha0 = x0.*0.1
-#append!(x0,alpha0);
+x0 = collect(1:n)*1.0; 
 
 result = Optim.optimize(myRegularizedFunction, x0, NelderMead(), Optim.Options(g_tol = 1e-12)  )
 Optim.minimizer(result)
+
+tree_plot(trr1)
+tree_plot(trr2)
