@@ -187,7 +187,7 @@ end
     trr1.probability = [1.0,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5];
     trr2.probability = trr1.probability;
 
-    @test nestedWasserstein(trr1,trr2,2) == 8.75
+    @test nestedWasserstein(trr1,trr2,1.0) == 8.75
 
 
 end
