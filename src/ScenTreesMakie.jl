@@ -1,6 +1,9 @@
 module ScenTreesMakie
 
 using Plots
+import Plots.plot
+import Plots.plot!
+
 using StatsBase
 using Distributions, Random
 rng = MersenneTwister(01012019);
