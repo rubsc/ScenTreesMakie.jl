@@ -43,7 +43,7 @@ using Test
         samplesize = 1001
         p = 2
         r = 2
-        tree_plot(trees[1])
+        plot(trees[1])
         for path in paths
             for newtree in trees
                 tree_approximation!(newtree,path,samplesize,p,r)
