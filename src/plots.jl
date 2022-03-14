@@ -182,7 +182,7 @@ Returns a plot of a scenario lattice.
 There might connections with zero probability -->
 these shouldn't be plotted! TODO
 """
-function lat_plot(lt::Lattice, title = nothing,simple=false, label=nothing)
+function plot(lt::Lattice, title = nothing,simple=false, label=nothing)
     
     tmpX = []; tmpY = [];
 
@@ -196,10 +196,10 @@ function lat_plot(lt::Lattice, title = nothing,simple=false, label=nothing)
     end
     
     if label===nothing
-        f = plot(tmpX,tmpY, legend=:topleft);
+        f = Plots.plot(tmpX,tmpY, legend=:topleft);
         return(f)
     else
-        f = plot(tmpX,tmpY, legend=:topleft,label=label);
+        f = Plots.plot(tmpX,tmpY, legend=:topleft,label=label);
         return(f)
     end
 
