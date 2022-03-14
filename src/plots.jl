@@ -1,5 +1,5 @@
 """
-	tree_plot(trr::Tree,title=nothing, simple = false, label=nothing)
+	plot(trr::Tree,title=nothing, simple = false, label=nothing)
 
 Returns the plot of the input tree `trr`.
 
@@ -16,7 +16,7 @@ Returns the plot of the input tree `trr`.
     if simple is equal to true then states valued at 0.0 and have 0.0 probability to be reached are not plotted. 
     To make use of this feature the `check_tree()` routine should be used before (SLOW!)
 """
-function tree_plot(trr::Tree{A,B,C,D}, title = nothing, simple= false, label=nothing) where {A,B,C,D}
+function plot(trr::Tree{A,B,C,D}, title = nothing, simple= false, label=nothing) where {A,B,C,D}
 
     stg = stage(trr)
     tmpX = []; tmpY = [];
@@ -58,11 +58,11 @@ end
 
 
 """
-	tree_plot!(trr::Tree,title=nothing, simple = false, label=nothing)
+	plot!(trr::Tree,title=nothing, simple = false, label=nothing)
 
 Adds an additional tree plot to an existing plot using `plot!()`. See `tree_plot()` for details.
 """
-function tree_plot!(trr::Tree{A,B,C,D},offset=0, title = nothing, simple= false, label=nothing) where {A,B,C,D}
+function plot!(trr::Tree{A,B,C,D},offset=0, title = nothing, simple= false, label=nothing) where {A,B,C,D}
 
     stg = stage(trr)
     tmpX = []; tmpY = [];
@@ -162,7 +162,7 @@ end
 
 
 """
-	lat_plot(lt::Lattice,title = nothing, label=nothing)
+	plot(lt::Lattice,title = nothing, label=nothing)
 
 Returns a plot of a scenario lattice.
 
@@ -221,7 +221,7 @@ function plot_path!(path)
         append!(tmpX,x,NaN); append!(tmpY,y,NaN);
     end
 
-    f = plot!(tmpX,tmpY, legend = :topleft);
+    f = Plots.plot!(tmpX,tmpY, legend = :topleft);
     return(f)
 
 end
