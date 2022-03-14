@@ -40,7 +40,7 @@ using Test
     @testset "ScenTrees.jl - Tree Approximation 1D" begin
         paths = [gaussian_path,running_maximum]
         trees = [Tree([1,2,2,2]),Tree([1,3,3,3])]
-        samplesize = 100001
+        samplesize = 1001
         p = 2
         r = 2
         tree_plot(trees[1])

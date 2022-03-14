@@ -27,6 +27,7 @@ export Tree, Lattice,
         structure, part_lattice,
         gaussian_path, running_maximum, kernel_scenarios, 
         tree_plot,tree_plot!, lat_plot, sample_path,  plot_path!,
+        plot,
 
         path_ident,  
 

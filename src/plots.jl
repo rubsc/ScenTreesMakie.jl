@@ -45,10 +45,10 @@ function tree_plot(trr::Tree{A,B,C,D}, title = nothing, simple= false, label=not
     end
     
     if label=== nothing
-        f = plot(tmpX,tmpY,legend=:topleft);
+        f = Plots.plot(tmpX,tmpY,legend=:topleft);
         return(f)
     else
-        f = plot(tmpX,tmpY,legend=:topleft, label=label);
+        f = Plots.plot(tmpX,tmpY,legend=:topleft, label=label);
         return(f)
     end
 end
@@ -91,9 +91,9 @@ function tree_plot!(trr::Tree{A,B,C,D},offset=0, title = nothing, simple= false,
     end
     
     if label=== nothing
-        plot!(tmpX,tmpY,legend=:topleft);
+        Plots.plot!(tmpX,tmpY,legend=:topleft);
     else
-        plot!(tmpX,tmpY,legend=:topleft, label=label);
+        Plots.plot!(tmpX,tmpY,legend=:topleft, label=label);
     end
 end
 
@@ -148,9 +148,9 @@ function sample_path(trr::Tree{A,B,C,D}, nPath=1, flag_show=true, label=nothing)
     end
 
     if label===nothing
-        f = plot(tmpX,tmpY,legend=:topleft);
+        f = Plots.plot(tmpX,tmpY,legend=:topleft);
     else
-        f = plot(tmpX,tmpY,legend=:topleft,label=label);
+        f = Plots.plot(tmpX,tmpY,legend=:topleft,label=label);
     end
     return(f)
 end
