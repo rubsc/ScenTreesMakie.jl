@@ -348,7 +348,14 @@ The target tree is used here to make the algorithm easier but strictly speaking 
 will be deleted in future versions. 
 
 #Example
-target = Tree(304)
+trr = Tree(404)
+trrs = [];
+for i=1:length(nodes(trr,2))
+    push!(trrs, part_tree(trr,nodes(trr,2)[i]))
+end
+target2 = deepcopy(trr); target2.state .= 0.0;
+
+target3 = combine_tree(target2,trr,trrs)
 
 """
 function combine_tree(target, trr, trrs)
