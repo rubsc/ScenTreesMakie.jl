@@ -104,7 +104,7 @@ trr2 = Tree(404);
 n = length(trr1.state);
 x0 = collect(1:n)*1.0; 
 
-result = Optim.optimize(myRegularizedFunction, x0, NelderMead(), Optim.Options(g_tol = 1e-12)  )
+result = Optim.optimize(myRegularizedFunction, x0, NelderMead(), Optim.Options(g_tol = 1e-12, show_trace=true)  )
 Optim.minimizer(result)
 
 tree_plot(trr1)

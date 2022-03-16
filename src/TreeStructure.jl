@@ -329,11 +329,52 @@ function part_tree(trr, node::Int64=0)
     end
     
     trr2.children = children(trr2.parent)
-    
-    #trr2.parent[2:end] = trr2.parent[2:end] .- trr2.parent[2].+1
     return(trr2)
     
 end
+
+"""
+	combine_tree(target:Tree,trr::Tree, trrs)
+
+combines a base tree `trr` with a list of trees in `trrs` such that at every
+leaf node of `trr` a tree in `trrs` is added. In a sense this reverses `part_tree`. 
+
+# Arguments:
+- target - an (empty) tree providing the overall tree structure for the combined tree.
+- trr - an instance of Tree
+- trrs - a vector of trees. The length of trrs must be equal to the number of leaf nodes in trr.
+
+The target tree is used here to make the algorithm easier but strictly speaking not necessary and
+will be deleted in future versions. 
+
+#Example
+target = Tree(304)
+
+"""
+function combine_tree(target, trr, trrs)
+    @assert length(trrs) == length(leaves(trr)[1])
+
+    newStates = [];
+    newProb  = [];
+    # first stage of new trrs not needed as equal to leaf nodes of trr
+    for i=1:(length(trrs[1].states)-1)  # for every additional stage
+        stage = height(trr)+i
+        for j=1:length(trrs)        # for every tree to be added
+            tmpNodes = nodes(trrs[j],stage)
+            tmpStates = trrs[j].state[tmpNodes]; # trrs[j].states for states in correct stage
+            tmpProb = trrs[j].probability[tmpNodes]
+            push!(newStates, tmpStates);
+            push!(newProb, tmpProb)
+        end
+    end
+
+
+    target.state = append!(trr.state,newStates)
+    target.probability = append!(trr.probability,newProb)
+
+    return(target)
+end
+
 
 
 
