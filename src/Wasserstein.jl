@@ -72,8 +72,9 @@ function nestedWasserstein(trr1,trr2,r=1.0)
 
     # initialize with all combinations of leave nodes of trr1 and trr2
     l1 = leaves(trr1)[1]; l2 = leaves(trr2)[1];
+    println("distFunctionStart")
     d_new = distFunction(trr1.state[l1],trr2.state[l2]) 
-
+    println("distFunctionEnd")
 
     for t= T-1:-1:0
        
@@ -92,6 +93,7 @@ function nestedWasserstein(trr1,trr2,r=1.0)
 
         end
         l1 = nodes(trr1,t); l2 = nodes(trr2,t)
+        println(t)
     end
     return(d_new[1,1])
 end

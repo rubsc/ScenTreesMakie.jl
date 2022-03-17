@@ -354,28 +354,36 @@ for i=1:length(nodes(trr,2))
     push!(trrs, part_tree(trr,nodes(trr,2)[i]))
 end
 target2 = deepcopy(trr); target2.state .= 0.0;
+trr.state=trr.state[1:7];
+trr.probability=trr.probability[1:7];
+trr.parent=trr.parent[1:7];
+trr.children=trr.children[1:7];
+
 
 target3 = combine_tree(target2,trr,trrs)
 
 """
+
+##NOT WORKING!!! trr must be what is deleted by part_tree....
 function combine_tree(target, trr, trrs)
     @assert length(trrs) == length(leaves(trr)[1])
 
     newStates = [];
     newProb  = [];
     # first stage of new trrs not needed as equal to leaf nodes of trr
-    for i=1:(length(trrs[1].states)-1)  # for every additional stage
-        stage = height(trr)+i
+    for i=1:height(trrs[1])  # for every additional stage
+        stage = i
         for j=1:length(trrs)        # for every tree to be added
             tmpNodes = nodes(trrs[j],stage)
             tmpStates = trrs[j].state[tmpNodes]; # trrs[j].states for states in correct stage
             tmpProb = trrs[j].probability[tmpNodes]
-            push!(newStates, tmpStates);
-            push!(newProb, tmpProb)
+            append!(newStates, tmpStates);
+            append!(newProb, tmpProb)
         end
     end
 
-
+    println(length(newStates))
+    println(length(trr.state))
     target.state = append!(trr.state,newStates)
     target.probability = append!(trr.probability,newProb)
 
